@@ -1114,8 +1114,8 @@ function buildCustomResult(){
     total += plp;
     breakdown.push({l:'Pool Deck ('+est.poolsize+' sq ft)', v:'$'+Math.round(plp)});
   }
-  if(customSvcs.windows && est.windowCount){
-    var wc = est.windowCount;
+  if(customSvcs.windows && (est.windowCount || est.windows)){
+    var wc = est.windowCount || est.windows;
     var wp = wc<=20 ? 175 : 175+Math.ceil((wc-20)/5)*25;
     total += wp;
     breakdown.push({l:'Window Cleaning ('+wc+' windows)', v:'$'+wp});
@@ -1139,9 +1139,15 @@ function buildCustomResult(){
 
   var priceEl = document.getElementById('resultPrice');
   var tbd = isDiff||isSteep||is3Story||customSvcs.grave||customSvcs.other;
-  if(total===0||tbd){
-    priceEl.textContent = 'TLC Will Confirm';
+  if(total===0){
+    priceEl.textContent = 'TLC Will Confirm Price';
     priceEl.style.fontSize='1.6rem';
+    document.querySelector('.price-hero .disc').textContent = 'TLC will contact you to confirm pricing';
+  } else if(tbd){
+    var lo=Math.max(200,Math.round(total*0.90)), hi=Math.max(220,Math.round(total*1.10));
+    priceEl.textContent = '$'+lo+' – $'+hi;
+    priceEl.style.fontSize='2rem';
+    document.querySelector('.price-hero .disc').textContent = 'Approximate — TLC confirms exact price before work begins';
   } else {
     var lo=Math.round(total*0.90), hi=Math.round(total*1.10);
     priceEl.textContent='$'+lo+' – $'+hi;
