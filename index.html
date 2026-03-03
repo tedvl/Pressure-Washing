@@ -121,7 +121,7 @@ body { font-family:-apple-system,'Segoe UI',sans-serif; background:#f0f4f8; min-
 .svc-check.selected { border-color:#7DC242; background:#f0fff0; }
 .svc-chkbox { width:22px; height:22px; border-radius:5px; border:2px solid #ccc; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:0.8rem; color:white; }
 .svc-check.selected .svc-chkbox { background:#7DC242; border-color:#7DC242; }
-.svc-icon { font-size:1.4rem; }
+.svc-icon { font-size:1.4rem; font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; }
 .svc-body { flex:1; }
 .svc-name { font-weight:700; font-size:0.92rem; color:#222; }
 .svc-rate { font-size:0.73rem; color:#3AABCD; font-weight:600; margin-top:2px; }
@@ -170,7 +170,7 @@ body { font-family:-apple-system,'Segoe UI',sans-serif; background:#f0f4f8; min-
 .custom-section-sub { text-align:center; font-size:0.78rem; color:#888; margin-bottom:12px; }
 .custom-services-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:0 0 10px; }
 @media(max-width:440px){ .custom-services-grid { grid-template-columns:repeat(3,1fr); } }
-.csvc-tile { background:#f8f8f8; border:2px solid #e0e0e0; border-radius:10px; padding:10px 6px; text-align:center; cursor:pointer; transition:all 0.15s; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:1.4rem; }
+.csvc-tile { background:#f8f8f8; border:2px solid #e0e0e0; border-radius:10px; padding:10px 6px; text-align:center; cursor:pointer; transition:all 0.15s; display:flex; flex-direction:column; align-items:center; gap:4px; font-size:1.4rem; font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; }
 .csvc-tile:hover { border-color:#7DC242; background:#f0fff0; }
 .csvc-tile.selected { border-color:#7DC242; background:#d4f5c4; box-shadow:0 0 0 2px #7DC242; }
 .csvc-tile.selected span { color:#3a7a1a; }
@@ -229,19 +229,290 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
     <div class="custom-section-hdr">🎯 Build Your Own Custom Quote</div>
     <p class="custom-section-sub">Tap the services you need, then click the button below</p>
     <div class="custom-services-grid">
-      <div class="csvc-tile" data-svc="housewash" onclick="toggleLandingTile(this,'housewash')">🏠<span>House Wash</span></div>
-      <div class="csvc-tile" data-svc="driveway" onclick="toggleLandingTile(this,'driveway')">🚗<span>Driveway</span></div>
-      <div class="csvc-tile" data-svc="roof" onclick="toggleLandingTile(this,'roof')">🏠<span>Roof Soft Wash</span></div>
-      <div class="csvc-tile" data-svc="patio" onclick="toggleLandingTile(this,'patio')">🪴<span>Patio / Walkways</span></div>
-      <div class="csvc-tile" data-svc="gutters" onclick="toggleLandingTile(this,'gutters')">🌿<span>Gutter Brightening</span></div>
-      <div class="csvc-tile" data-svc="deckrest" onclick="toggleLandingTile(this,'deckrest')">🪵<span>Deck Services</span></div>
-      <div class="csvc-tile" data-svc="pool" onclick="toggleLandingTile(this,'pool')">🏊<span>Pool Deck</span></div>
-      <div class="csvc-tile" data-svc="windows" onclick="toggleLandingTile(this,'windows')">🪟<span>Windows</span></div>
-      <div class="csvc-tile" data-svc="fencerest" onclick="toggleLandingTile(this,'fencerest')">🔧<span>Fence Services</span></div>
-      <div class="csvc-tile" data-svc="rust" onclick="toggleLandingTile(this,'rust')">🟤<span>Rust / Stain</span></div>
-      <div class="csvc-tile" data-svc="graffiti" onclick="toggleLandingTile(this,'graffiti')">🎨<span>Graffiti Removal</span></div>
-      <div class="csvc-tile" data-svc="grave" onclick="toggleLandingTile(this,'grave')">⚰️<span>Gravestones</span></div>
-      <div class="csvc-tile" data-svc="other" onclick="toggleLandingTile(this,'other')">💬<span>Something Else</span></div>
+      <div class="csvc-tile" data-svc="housewash" onclick="toggleLandingTile(this,'housewash')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="sky_hw" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d4eeff"/><stop offset="100%" stop-color="#f0f8ff"/></linearGradient>
+    <linearGradient id="roof_hw" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B7355"/><stop offset="100%" stop-color="#5a4a30"/></linearGradient>
+    <linearGradient id="wallL_hw" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#f5f0e8"/><stop offset="100%" stop-color="#e8e0d0"/></linearGradient>
+    <linearGradient id="wallR_hw" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#d8d0c0"/><stop offset="100%" stop-color="#c8c0b0"/></linearGradient>
+  </defs>
+  <rect x="0" y="0" width="48" height="48" fill="url(#sky_hw)"/>
+  <ellipse cx="24" cy="46" rx="18" ry="2.5" fill="#aaa" opacity="0.3"/>
+  <polygon points="24,4 44,20 4,20" fill="url(#roof_hw)" stroke="#3a2a10" stroke-width="1"/>
+  <line x1="24" y1="4" x2="44" y2="20" stroke="#a08060" stroke-width="0.8" opacity="0.6"/>
+  <rect x="4" y="20" width="40" height="2" fill="#3a2a10" opacity="0.3"/>
+  <rect x="4" y="21" width="20" height="22" fill="url(#wallL_hw)"/>
+  <rect x="24" y="21" width="20" height="22" fill="url(#wallR_hw)"/>
+  <rect x="4" y="41" width="40" height="2" fill="#888" opacity="0.2"/>
+  <rect x="20" y="31" width="8" height="12" rx="1" fill="#7a5c3a" stroke="#5a3c1a" stroke-width="0.8"/>
+  <rect x="20" y="31" width="8" height="6" rx="1" fill="#8a6c4a"/>
+  <circle cx="27" cy="37" r="0.8" fill="#d4a820"/>
+  <rect x="7" y="25" width="8" height="7" rx="0.5" fill="#a8d4f0" stroke="#888" stroke-width="0.8"/>
+  <line x1="11" y1="25" x2="11" y2="32" stroke="#888" stroke-width="0.5"/>
+  <line x1="7" y1="28.5" x2="15" y2="28.5" stroke="#888" stroke-width="0.5"/>
+  <rect x="33" y="25" width="8" height="7" rx="0.5" fill="#88b8d8" stroke="#888" stroke-width="0.8"/>
+  <line x1="37" y1="25" x2="37" y2="32" stroke="#888" stroke-width="0.5"/>
+  <line x1="33" y1="28.5" x2="41" y2="28.5" stroke="#888" stroke-width="0.5"/>
+  <ellipse cx="12" cy="36" rx="1.2" ry="2" fill="#3AABCD" opacity="0.7"/>
+  <ellipse cx="24" cy="34" rx="1.2" ry="2" fill="#3AABCD" opacity="0.6"/>
+  <ellipse cx="36" cy="36" rx="1.2" ry="2" fill="#3AABCD" opacity="0.7"/>
+</svg><span>House Wash</span></div>
+      <div class="csvc-tile" data-svc="driveway" onclick="toggleLandingTile(this,'driveway')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="conc_dr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#d8d8d8"/></linearGradient>
+    <linearGradient id="car_dr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a8fd4"/><stop offset="100%" stop-color="#3a6ab0"/></linearGradient>
+    <linearGradient id="carT_dr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6a9fe4"/><stop offset="100%" stop-color="#4a7fc0"/></linearGradient>
+  </defs>
+  <polygon points="14,8 34,8 46,46 2,46" fill="url(#conc_dr)" stroke="#999" stroke-width="1"/>
+  <line x1="14" y1="18" x2="34" y2="18" stroke="#aaa" stroke-width="0.7" opacity="0.6"/>
+  <line x1="11" y1="28" x2="37" y2="28" stroke="#aaa" stroke-width="0.7" opacity="0.6"/>
+  <line x1="8"  y1="38" x2="40" y2="38" stroke="#aaa" stroke-width="0.7" opacity="0.6"/>
+  <line x1="24" y1="10" x2="24" y2="16" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+  <line x1="24" y1="20" x2="24" y2="26" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.8"/>
+  <ellipse cx="24" cy="23" rx="14" ry="3" fill="#888" opacity="0.25"/>
+  <rect x="10" y="10" width="28" height="14" rx="3" fill="url(#car_dr)" stroke="#2a5a90" stroke-width="1"/>
+  <rect x="14" y="5" width="20" height="8" rx="2.5" fill="url(#carT_dr)" stroke="#2a5a90" stroke-width="1"/>
+  <rect x="15" y="5.5" width="18" height="7" rx="2" fill="#cce8ff" opacity="0.85"/>
+  <line x1="17" y1="6.5" x2="23" y2="6.5" stroke="white" stroke-width="1.2" opacity="0.7" stroke-linecap="round"/>
+  <circle cx="14" cy="24" r="5" fill="#222" stroke="#444" stroke-width="0.5"/>
+  <circle cx="14" cy="24" r="2.8" fill="#555"/>
+  <circle cx="14" cy="24" r="1.2" fill="#888"/>
+  <circle cx="34" cy="24" r="5" fill="#222" stroke="#444" stroke-width="0.5"/>
+  <circle cx="34" cy="24" r="2.8" fill="#555"/>
+  <circle cx="34" cy="24" r="1.2" fill="#888"/>
+  <rect x="10" y="13" width="3" height="2.5" rx="0.5" fill="#ffffa0" opacity="0.9"/>
+  <rect x="35" y="13" width="3" height="2.5" rx="0.5" fill="#ffffa0" opacity="0.9"/>
+</svg><span>Driveway</span></div>
+      <div class="csvc-tile" data-svc="roof" onclick="toggleLandingTile(this,'roof')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="rL" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#a0a0a0"/></linearGradient>
+    <linearGradient id="rR" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#686868"/><stop offset="100%" stop-color="#505050"/></linearGradient>
+    <linearGradient id="chim" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#aaa"/><stop offset="100%" stop-color="#777"/></linearGradient>
+  </defs>
+  <polygon points="24,4 2,30 24,30" fill="url(#rL)" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="24,4 46,30 24,30" fill="url(#rR)" stroke="#333" stroke-width="1.5" stroke-linejoin="round"/>
+  <line x1="14" y1="17" x2="24" y2="17" stroke="#888" stroke-width="0.8" opacity="0.5"/>
+  <line x1="8"  y1="23" x2="24" y2="23" stroke="#888" stroke-width="0.8" opacity="0.5"/>
+  <line x1="4"  y1="28" x2="24" y2="28" stroke="#888" stroke-width="0.8" opacity="0.4"/>
+  <line x1="34" y1="17" x2="24" y2="17" stroke="#444" stroke-width="0.8" opacity="0.5"/>
+  <line x1="40" y1="23" x2="24" y2="23" stroke="#444" stroke-width="0.8" opacity="0.5"/>
+  <line x1="44" y1="28" x2="24" y2="28" stroke="#444" stroke-width="0.8" opacity="0.4"/>
+  <line x1="24" y1="4" x2="24" y2="30" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+  <line x1="23" y1="4" x2="23" y2="30" stroke="#999" stroke-width="0.8" opacity="0.3"/>
+  <rect x="30" y="9" width="9" height="8" rx="1" fill="url(#chim)" stroke="#555" stroke-width="1"/>
+  <rect x="29" y="7" width="11" height="3" rx="1" fill="#666" stroke="#444" stroke-width="0.8"/>
+  <polygon points="39,10 44,14 44,17 39,17" fill="#444" opacity="0.2"/>
+  <rect x="2" y="30" width="44" height="4" rx="1" fill="#d0d0d0" stroke="#aaa" stroke-width="1"/>
+  <rect x="2" y="34" width="44" height="3" rx="1" fill="#aaa" stroke="#888" stroke-width="1"/>
+  <rect x="2" y="37" width="44" height="9" rx="1" fill="#f0ece4" stroke="#ccc" stroke-width="1"/>
+  <rect x="2" y="37" width="44" height="2" fill="#888" opacity="0.1"/>
+</svg><span>Roof Soft Wash</span></div>
+      <div class="csvc-tile" data-svc="patio" onclick="toggleLandingTile(this,'patio')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="pv1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#c8c0b0"/><stop offset="100%" stop-color="#a8a090"/></linearGradient>
+    <linearGradient id="pv2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8b0a0"/><stop offset="100%" stop-color="#989088"/></linearGradient>
+  </defs>
+  <rect x="2" y="2" width="44" height="44" rx="2" fill="#b0a898"/>
+  <rect x="3"  y="3"  width="20" height="10" rx="1" fill="url(#pv1)" stroke="#888" stroke-width="0.8"/>
+  <rect x="25" y="3"  width="20" height="10" rx="1" fill="url(#pv2)" stroke="#888" stroke-width="0.8"/>
+  <line x1="4" y1="4" x2="22" y2="4" stroke="white" stroke-width="0.8" opacity="0.4"/>
+  <line x1="26" y1="4" x2="44" y2="4" stroke="white" stroke-width="0.8" opacity="0.3"/>
+  <rect x="3"  y="15" width="13" height="10" rx="1" fill="url(#pv2)" stroke="#888" stroke-width="0.8"/>
+  <rect x="18" y="15" width="20" height="10" rx="1" fill="url(#pv1)" stroke="#888" stroke-width="0.8"/>
+  <rect x="40" y="15" width="5"  height="10" rx="1" fill="url(#pv2)" stroke="#888" stroke-width="0.8"/>
+  <rect x="3"  y="27" width="20" height="10" rx="1" fill="url(#pv1)" stroke="#888" stroke-width="0.8"/>
+  <rect x="25" y="27" width="20" height="10" rx="1" fill="url(#pv2)" stroke="#888" stroke-width="0.8"/>
+  <rect x="3"  y="39" width="13" height="6"  rx="1" fill="url(#pv2)" stroke="#888" stroke-width="0.8"/>
+  <rect x="18" y="39" width="20" height="6"  rx="1" fill="url(#pv1)" stroke="#888" stroke-width="0.8"/>
+  <rect x="40" y="39" width="5"  height="6"  rx="1" fill="url(#pv2)" stroke="#888" stroke-width="0.8"/>
+  <circle cx="24" cy="14" r="1.5" fill="#7DC242" opacity="0.5"/>
+  <circle cx="17" cy="26" r="1"   fill="#7DC242" opacity="0.4"/>
+</svg><span>Patio / Walkways</span></div>
+      <div class="csvc-tile" data-svc="gutters" onclick="toggleLandingTile(this,'gutters')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="rsl" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#909090"/><stop offset="100%" stop-color="#b8b8b8"/></linearGradient>
+    <linearGradient id="gml" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#909090"/></linearGradient>
+  </defs>
+  <polygon points="0,18 48,18 44,6 4,6" fill="url(#rsl)" stroke="#555" stroke-width="1"/>
+  <line x1="4" y1="10" x2="44" y2="10" stroke="#777" stroke-width="0.8" opacity="0.5"/>
+  <line x1="4" y1="14" x2="44" y2="14" stroke="#777" stroke-width="0.8" opacity="0.5"/>
+  <rect x="0" y="18" width="48" height="5" fill="#8B7355" stroke="#6a5030" stroke-width="0.8"/>
+  <path d="M0,23 L0,36 Q0,39 3,39 L45,39 Q48,39 48,36 L48,23 Z" fill="url(#gml)" stroke="#777" stroke-width="1.2"/>
+  <rect x="1" y="23" width="46" height="3" fill="#888" opacity="0.2"/>
+  <ellipse cx="10" cy="33" rx="5" ry="2.5" fill="#6aaa30" transform="rotate(-20,10,33)"/>
+  <ellipse cx="10" cy="33" rx="3" ry="1.5" fill="#4a8a10" transform="rotate(-20,10,33)" opacity="0.7"/>
+  <line x1="10" y1="30" x2="10" y2="36" stroke="#3a6a08" stroke-width="0.8" opacity="0.5"/>
+  <ellipse cx="22" cy="31" rx="4" ry="2" fill="#7DC242" transform="rotate(15,22,31)"/>
+  <ellipse cx="33" cy="33" rx="5" ry="2.5" fill="#559020" transform="rotate(-10,33,33)"/>
+  <ellipse cx="42" cy="31" rx="3.5" ry="2" fill="#6aaa30" transform="rotate(25,42,31)"/>
+  <circle cx="17" cy="35" r="1.5" fill="#8B6340" opacity="0.6"/>
+  <ellipse cx="14" cy="37" rx="5" ry="1.2" fill="#8B7355" opacity="0.4"/>
+  <rect x="43" y="39" width="5" height="9" rx="1" fill="#b0b0b0" stroke="#888" stroke-width="1"/>
+  <rect x="43" y="39" width="5" height="2" fill="#ccc"/>
+</svg><span>Gutter Brightening</span></div>
+      <div class="csvc-tile" data-svc="deckrest" onclick="toggleLandingTile(this,'deckrest')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="pk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8c888"/><stop offset="100%" stop-color="#c8a860"/></linearGradient>
+    <linearGradient id="pk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d8b870"/><stop offset="100%" stop-color="#b89850"/></linearGradient>
+    <linearGradient id="rl" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a07848"/><stop offset="100%" stop-color="#785830"/></linearGradient>
+  </defs>
+  <rect x="2" y="26" width="44" height="7"  rx="0.5" fill="url(#pk1)" stroke="#8B6340" stroke-width="0.8"/>
+  <rect x="2" y="33" width="44" height="7"  rx="0.5" fill="url(#pk2)" stroke="#8B6340" stroke-width="0.8"/>
+  <rect x="2" y="40" width="44" height="6"  rx="0.5" fill="url(#pk1)" stroke="#8B6340" stroke-width="0.8"/>
+  <line x1="8"  y1="26" x2="8"  y2="46" stroke="#8B6340" stroke-width="0.6" opacity="0.3"/>
+  <line x1="16" y1="26" x2="16" y2="46" stroke="#8B6340" stroke-width="0.6" opacity="0.3"/>
+  <line x1="24" y1="26" x2="24" y2="46" stroke="#8B6340" stroke-width="0.6" opacity="0.3"/>
+  <line x1="32" y1="26" x2="32" y2="46" stroke="#8B6340" stroke-width="0.6" opacity="0.3"/>
+  <line x1="40" y1="26" x2="40" y2="46" stroke="#8B6340" stroke-width="0.6" opacity="0.3"/>
+  <line x1="2" y1="26.5" x2="46" y2="26.5" stroke="white" stroke-width="0.8" opacity="0.4"/>
+  <rect x="3"  y="8" width="4" height="20" rx="1" fill="url(#rl)" stroke="#5a3a18" stroke-width="0.8"/>
+  <rect x="41" y="8" width="4" height="20" rx="1" fill="url(#rl)" stroke="#5a3a18" stroke-width="0.8"/>
+  <rect x="22" y="10" width="4" height="18" rx="1" fill="url(#rl)" stroke="#5a3a18" stroke-width="0.8"/>
+  <rect x="7" y="8" width="2" height="20" fill="#5a3a18" opacity="0.2"/>
+  <rect x="2" y="6" width="44" height="4" rx="1.5" fill="url(#rl)" stroke="#5a3a18" stroke-width="1"/>
+  <line x1="3" y1="7" x2="45" y2="7" stroke="white" stroke-width="0.8" opacity="0.3"/>
+  <rect x="2" y="14" width="44" height="2.5" rx="1" fill="#b08858" opacity="0.8"/>
+  <rect x="2" y="20" width="44" height="2.5" rx="1" fill="#b08858" opacity="0.8"/>
+</svg><span>Deck Services</span></div>
+      <div class="csvc-tile" data-svc="pool" onclick="toggleLandingTile(this,'pool')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="wat" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a9fd4"/><stop offset="100%" stop-color="#0d6a9a"/></linearGradient>
+    <linearGradient id="pdeck" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ddd"/><stop offset="100%" stop-color="#bbb"/></linearGradient>
+  </defs>
+  <rect x="2" y="2" width="44" height="44" rx="3" fill="url(#pdeck)" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="2" y1="12" x2="10" y2="12" stroke="#aaa" stroke-width="0.7" opacity="0.5"/>
+  <line x1="38" y1="8" x2="46" y2="8" stroke="#aaa" stroke-width="0.7" opacity="0.5"/>
+  <rect x="8" y="8" width="32" height="32" rx="6" fill="url(#wat)"/>
+  <rect x="8" y="8" width="32" height="3" rx="3" fill="#0d6a9a" opacity="0.5"/>
+  <rect x="8" y="8" width="3" height="32" rx="3" fill="#0d6a9a" opacity="0.3"/>
+  <line x1="18" y1="9" x2="18" y2="39" stroke="#f9c74f" stroke-width="1.5" opacity="0.8"/>
+  <line x1="30" y1="9" x2="30" y2="39" stroke="#f9c74f" stroke-width="1.5" opacity="0.8"/>
+  <ellipse cx="13" cy="16" rx="3" ry="1.2" fill="white" opacity="0.25" transform="rotate(-20,13,16)"/>
+  <ellipse cx="24" cy="22" rx="4" ry="1.5" fill="white" opacity="0.2" transform="rotate(10,24,22)"/>
+  <ellipse cx="34" cy="32" rx="3" ry="1" fill="white" opacity="0.2" transform="rotate(-15,34,32)"/>
+  <line x1="36" y1="10" x2="36" y2="24" stroke="#ccc" stroke-width="1.8" opacity="0.9"/>
+  <line x1="40" y1="10" x2="40" y2="24" stroke="#ccc" stroke-width="1.8" opacity="0.9"/>
+  <line x1="36" y1="14" x2="40" y2="14" stroke="#ccc" stroke-width="1.5" opacity="0.9"/>
+  <line x1="36" y1="19" x2="40" y2="19" stroke="#ccc" stroke-width="1.5" opacity="0.9"/>
+  <path d="M12,38 Q20,42 28,38" stroke="white" stroke-width="1.8" fill="none" opacity="0.5"/>
+</svg><span>Pool Deck</span></div>
+      <div class="csvc-tile" data-svc="windows" onclick="toggleLandingTile(this,'windows')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4eeff"/><stop offset="100%" stop-color="#a8ccee"/></linearGradient>
+    <linearGradient id="gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b0d4f0"/><stop offset="100%" stop-color="#88b0d8"/></linearGradient>
+    <linearGradient id="fr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#888"/><stop offset="100%" stop-color="#555"/></linearGradient>
+  </defs>
+  <rect x="3" y="3" width="42" height="42" rx="3" fill="url(#fr)" stroke="#333" stroke-width="1.5"/>
+  <rect x="5" y="5" width="38" height="38" rx="2" fill="#444"/>
+  <rect x="6"  y="6"  width="17" height="17" rx="1" fill="url(#gl)"/>
+  <rect x="25" y="6"  width="17" height="17" rx="1" fill="url(#gd)"/>
+  <rect x="6"  y="25" width="17" height="17" rx="1" fill="url(#gd)"/>
+  <rect x="25" y="25" width="17" height="17" rx="1" fill="url(#gl)"/>
+  <line x1="8"  y1="8"  x2="18" y2="8"  stroke="white" stroke-width="2"   opacity="0.7" stroke-linecap="round"/>
+  <line x1="8"  y1="11" x2="14" y2="11" stroke="white" stroke-width="1.2" opacity="0.4" stroke-linecap="round"/>
+  <line x1="27" y1="8"  x2="37" y2="8"  stroke="white" stroke-width="2"   opacity="0.5" stroke-linecap="round"/>
+  <line x1="27" y1="11" x2="33" y2="11" stroke="white" stroke-width="1.2" opacity="0.3" stroke-linecap="round"/>
+  <line x1="8"  y1="27" x2="18" y2="27" stroke="white" stroke-width="2"   opacity="0.5" stroke-linecap="round"/>
+  <line x1="27" y1="27" x2="37" y2="27" stroke="white" stroke-width="2"   opacity="0.7" stroke-linecap="round"/>
+  <line x1="27" y1="30" x2="33" y2="30" stroke="white" stroke-width="1.2" opacity="0.4" stroke-linecap="round"/>
+</svg><span>Windows</span></div>
+      <div class="csvc-tile" data-svc="fencerest" onclick="toggleLandingTile(this,'fencerest')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="bd1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#e8c888"/><stop offset="100%" stop-color="#c8a860"/></linearGradient>
+    <linearGradient id="bd2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#d8b870"/><stop offset="100%" stop-color="#b89850"/></linearGradient>
+    <linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7DC242"/><stop offset="100%" stop-color="#559020"/></linearGradient>
+  </defs>
+  <rect x="0" y="38" width="48" height="10" fill="url(#gr)"/>
+  <line x1="0" y1="39" x2="48" y2="39" stroke="#9de060" stroke-width="0.8" opacity="0.4"/>
+  <rect x="1"  y="10" width="8" height="30" rx="1" fill="url(#bd1)" stroke="#8B6340" stroke-width="1"/>
+  <polygon points="1,10 5,2 9,10" fill="#c8a060" stroke="#8B6340" stroke-width="1"/>
+  <rect x="1" y="10" width="2" height="30" fill="white" opacity="0.15"/>
+  <rect x="11" y="10" width="8" height="30" rx="1" fill="url(#bd2)" stroke="#8B6340" stroke-width="1"/>
+  <polygon points="11,10 15,2 19,10" fill="#b89040" stroke="#8B6340" stroke-width="1"/>
+  <rect x="18" y="10" width="1.5" height="30" fill="#6a4a20" opacity="0.3"/>
+  <rect x="21" y="10" width="8" height="30" rx="1" fill="url(#bd1)" stroke="#8B6340" stroke-width="1"/>
+  <polygon points="21,10 25,2 29,10" fill="#c8a060" stroke="#8B6340" stroke-width="1"/>
+  <rect x="21" y="10" width="2" height="30" fill="white" opacity="0.15"/>
+  <rect x="31" y="10" width="8" height="30" rx="1" fill="url(#bd2)" stroke="#8B6340" stroke-width="1"/>
+  <polygon points="31,10 35,2 39,10" fill="#b89040" stroke="#8B6340" stroke-width="1"/>
+  <rect x="38" y="10" width="1.5" height="30" fill="#6a4a20" opacity="0.3"/>
+  <rect x="41" y="10" width="7" height="30" rx="1" fill="url(#bd1)" stroke="#8B6340" stroke-width="1"/>
+  <polygon points="41,10 44.5,2 48,10" fill="#c8a060" stroke="#8B6340" stroke-width="1"/>
+  <rect x="0" y="17" width="48" height="4" rx="1" fill="#a07840" stroke="#7a5820" stroke-width="0.8" opacity="0.9"/>
+  <line x1="0" y1="17.5" x2="48" y2="17.5" stroke="white" stroke-width="0.6" opacity="0.3"/>
+  <rect x="0" y="30" width="48" height="4" rx="1" fill="#a07840" stroke="#7a5820" stroke-width="0.8" opacity="0.9"/>
+</svg><span>Fence Services</span></div>
+      <div class="csvc-tile" data-svc="rust" onclick="toggleLandingTile(this,'rust')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="crs" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d0d0d0"/><stop offset="100%" stop-color="#b8b8b8"/></linearGradient>
+    <radialGradient id="rb1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c0392b" stop-opacity="0.9"/><stop offset="50%" stop-color="#b5651d" stop-opacity="0.8"/><stop offset="100%" stop-color="#8B4513" stop-opacity="0.4"/></radialGradient>
+    <radialGradient id="rb2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#d4691e" stop-opacity="0.8"/><stop offset="100%" stop-color="#8B4513" stop-opacity="0.2"/></radialGradient>
+  </defs>
+  <rect x="2" y="2" width="44" height="44" rx="3" fill="url(#crs)" stroke="#aaa" stroke-width="1.5"/>
+  <path d="M8,5 Q10,15 8,22" stroke="#aaa" stroke-width="0.8" fill="none" opacity="0.4"/>
+  <path d="M38,28 Q42,35 40,44" stroke="#aaa" stroke-width="0.8" fill="none" opacity="0.4"/>
+  <ellipse cx="22" cy="22" rx="16" ry="13" fill="url(#rb1)"/>
+  <ellipse cx="28" cy="18" rx="9" ry="7" fill="url(#rb2)"/>
+  <path d="M18,30 Q17,36 16,44" stroke="#b5651d" stroke-width="2.5" fill="none" opacity="0.6" stroke-linecap="round"/>
+  <path d="M24,32 Q24,38 23,44" stroke="#c0392b" stroke-width="2" fill="none" opacity="0.5" stroke-linecap="round"/>
+  <path d="M30,28 Q31,34 30,40" stroke="#b5651d" stroke-width="1.5" fill="none" opacity="0.4" stroke-linecap="round"/>
+  <circle cx="10" cy="18" r="2" fill="#b5651d" opacity="0.5"/>
+  <circle cx="36" cy="26" r="1.5" fill="#c0392b" opacity="0.4"/>
+  <circle cx="24" cy="16" r="3" fill="#888" stroke="#666" stroke-width="1"/>
+  <circle cx="24" cy="16" r="1.2" fill="#555"/>
+</svg><span>Rust / Stain</span></div>
+      <div class="csvc-tile" data-svc="graffiti" onclick="toggleLandingTile(this,'graffiti')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="bw" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8a888"/><stop offset="100%" stop-color="#b09070"/></linearGradient>
+  </defs>
+  <rect x="2" y="2" width="44" height="44" rx="2" fill="url(#bw)"/>
+  <rect x="2"  y="2"  width="22" height="9" rx="0.5" fill="#c0a080" stroke="#907050" stroke-width="0.8"/>
+  <rect x="26" y="2"  width="20" height="9" rx="0.5" fill="#c8a888" stroke="#907050" stroke-width="0.8"/>
+  <rect x="2"  y="13" width="14" height="9" rx="0.5" fill="#bca078" stroke="#907050" stroke-width="0.8"/>
+  <rect x="18" y="13" width="22" height="9" rx="0.5" fill="#c4a484" stroke="#907050" stroke-width="0.8"/>
+  <rect x="42" y="13" width="4"  height="9" rx="0.5" fill="#c0a080" stroke="#907050" stroke-width="0.8"/>
+  <rect x="2"  y="24" width="22" height="9" rx="0.5" fill="#c8a888" stroke="#907050" stroke-width="0.8"/>
+  <rect x="26" y="24" width="20" height="9" rx="0.5" fill="#bca078" stroke="#907050" stroke-width="0.8"/>
+  <rect x="2"  y="35" width="14" height="9" rx="0.5" fill="#c4a484" stroke="#907050" stroke-width="0.8"/>
+  <rect x="18" y="35" width="22" height="9" rx="0.5" fill="#c0a080" stroke="#907050" stroke-width="0.8"/>
+  <rect x="42" y="35" width="4"  height="9" rx="0.5" fill="#c8a888" stroke="#907050" stroke-width="0.8"/>
+  <path d="M6,32 L6,14 Q6,10 10,10 Q14,10 14,14 Q14,20 10,22 L14,32" stroke="#e74c3c" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18,10 L18,28 L28,28 L28,10" stroke="#2980b9" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18,19 L28,19" stroke="#2980b9" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32,10 Q40,6 38,18 Q36,26 42,28 Q46,30 44,38" stroke="#27ae60" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M6,38 L8,32 L10,38 L5,34 L11,34 Z" fill="#f39c12" opacity="0.8"/>
+</svg><span>Graffiti Removal</span></div>
+      <div class="csvc-tile" data-svc="grave" onclick="toggleLandingTile(this,'grave')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="stn" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d8d8d8"/><stop offset="100%" stop-color="#a8a8a8"/></linearGradient>
+    <linearGradient id="stnB" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#989898"/></linearGradient>
+    <linearGradient id="grs" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7DC242"/><stop offset="100%" stop-color="#559020"/></linearGradient>
+  </defs>
+  <rect x="2" y="38" width="44" height="9" rx="2" fill="url(#grs)"/>
+  <line x1="2" y1="39" x2="44" y2="39" stroke="#9de060" stroke-width="0.8" opacity="0.4"/>
+  <rect x="9" y="34" width="30" height="6" rx="1" fill="url(#stnB)" stroke="#888" stroke-width="1.2"/>
+  <line x1="10" y1="35" x2="38" y2="35" stroke="white" stroke-width="0.8" opacity="0.3"/>
+  <rect x="13" y="17" width="22" height="19" fill="url(#stn)" stroke="#888" stroke-width="1.8"/>
+  <path d="M13,17 Q13,5 24,5 Q35,5 35,17" fill="url(#stn)" stroke="#888" stroke-width="1.8"/>
+  <rect x="33" y="17" width="2" height="19" fill="#888" opacity="0.2"/>
+  <circle cx="16" cy="28" r="2" fill="#7DC242" opacity="0.35"/>
+  <circle cx="32" cy="22" r="1.5" fill="#7DC242" opacity="0.3"/>
+  <line x1="24" y1="9"  x2="24" y2="20" stroke="#888" stroke-width="2.5"/>
+  <line x1="18" y1="13" x2="30" y2="13" stroke="#888" stroke-width="2.5"/>
+  <line x1="17" y1="24" x2="31" y2="24" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="17" y1="28" x2="31" y2="28" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="17" y1="32" x2="27" y2="32" stroke="#aaa" stroke-width="1.2"/>
+</svg><span>Gravestones</span></div>
+      <div class="csvc-tile" data-svc="other" onclick="toggleLandingTile(this,'other')"><svg width="38" height="38" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="bbl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e8f7d4"/><stop offset="100%" stop-color="#c8e8a4"/></linearGradient>
+  </defs>
+  <circle cx="24" cy="24" r="22" fill="url(#bbl)" stroke="#7DC242" stroke-width="2.5"/>
+  <circle cx="24" cy="24" r="22" fill="none" stroke="#559020" stroke-width="0.8" opacity="0.3"/>
+  <ellipse cx="16" cy="14" rx="6" ry="3.5" fill="white" opacity="0.3" transform="rotate(-30,16,14)"/>
+  <path d="M17,18 Q17,10 24,10 Q31,10 31,17 Q31,23 24,25 L24,30" stroke="#559020" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="24" cy="35" r="3" fill="#559020"/>
+</svg><span>Something Else</span></div>
     </div>
     <div id="tileSelCount" style="text-align:center;font-size:0.82rem;color:#7DC242;font-weight:700;min-height:20px;margin-bottom:8px;"></div>
     <div id="landing-other-wrap" style="display:none;margin-top:10px;">
@@ -298,23 +569,23 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
     <div class="note-box">💡 e.g. Brick front with Hardiplank sides is very common. TLC prices based on the predominant material.</div>
     <div class="choice siding-multi" id="sid-vinyl" onclick="toggleSiding('vinyl',this)">
       <div class="choice-radio"></div>
-      <div class="choice-body"><div class="choice-title">Vinyl Siding</div><div class="choice-mod">Base rate</div></div>
+      <div class="choice-body"><div class="choice-title">Vinyl Siding</div><div class="choice-mod">Standard rate</div></div>
     </div>
     <div class="choice siding-multi" id="sid-hardiplank" onclick="toggleSiding('hardiplank',this)">
       <div class="choice-radio"></div>
-      <div class="choice-body"><div class="choice-title">Hardiplank / Fiber Cement</div><div class="choice-mod">Base rate</div></div>
+      <div class="choice-body"><div class="choice-title">Hardiplank / Fiber Cement</div><div class="choice-mod">Standard rate</div></div>
     </div>
     <div class="choice siding-multi" id="sid-brick" onclick="toggleSiding('brick',this)">
       <div class="choice-radio"></div>
-      <div class="choice-body"><div class="choice-title">Brick</div><div class="choice-mod">+30%</div></div>
+      <div class="choice-body"><div class="choice-title">Brick</div><div class="choice-mod">Additional prep required</div></div>
     </div>
     <div class="choice siding-multi" id="sid-wood" onclick="toggleSiding('wood',this)">
       <div class="choice-radio"></div>
-      <div class="choice-body"><div class="choice-title">Wood</div><div class="choice-mod">+25%</div></div>
+      <div class="choice-body"><div class="choice-title">Wood</div><div class="choice-mod">Additional prep required</div></div>
     </div>
     <div class="choice siding-multi" id="sid-stucco" onclick="toggleSiding('stucco',this)">
       <div class="choice-radio"></div>
-      <div class="choice-body"><div class="choice-title">Stucco</div><div class="choice-mod">+50%</div></div>
+      <div class="choice-body"><div class="choice-title">Stucco</div><div class="choice-mod">Additional prep required</div></div>
     </div>
     <div class="choice siding-multi" id="sid-mixed" onclick="toggleSiding('mixed',this)">
       <div class="choice-radio"></div>
@@ -390,7 +661,7 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
 
   <!-- Q: Patio Size -->
   <div id="wq-patio" class="qcard" style="display:none;">
-    <h2>🪴 Patio / Walkway size?</h2>
+    <h2>🧱 Patio / Walkway size?</h2>
     <div class="qsub">Pick closest — or enter sq ft for a more accurate estimate</div>
     <div class="note-box">💡 Either works — TLC confirms exact pricing after reviewing your property.</div>
     <div class="size-grid" style="margin-bottom:12px;">
@@ -529,19 +800,19 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
       <div class="svc-body"><div class="svc-name">House Wash</div><div class="svc-rate">Soft wash • siding type affects price</div></div>
     </div>
     <div class="svc-check" id="svc-driveway" onclick="toggleSvc('driveway')">
-      <div class="svc-chkbox"></div><span class="svc-icon">🚗</span>
+      <div class="svc-chkbox"></div><span class="svc-icon">🛣️</span>
       <div class="svc-body"><div class="svc-name">Driveway / Flatwork</div><div class="svc-rate">Pressure wash • surface cleaning</div></div>
     </div>
     <div class="svc-check" id="svc-roof" onclick="toggleSvc('roof')">
-      <div class="svc-chkbox"></div><span class="svc-icon">🏠</span>
+      <div class="svc-chkbox"></div><span class="svc-icon">🏘️</span>
       <div class="svc-body"><div class="svc-name">Roof Soft Wash</div><div class="svc-rate">Soft wash • pitch & stories affect price</div></div>
     </div>
     <div class="svc-check" id="svc-patio" onclick="toggleSvc('patio')">
-      <div class="svc-chkbox"></div><span class="svc-icon">🪴</span>
+      <div class="svc-chkbox"></div><span class="svc-icon">🪨</span>
       <div class="svc-body"><div class="svc-name">Patio / Walkways</div><div class="svc-rate">Pressure wash • surface cleaning</div></div>
     </div>
     <div class="svc-check" id="svc-gutters" onclick="toggleSvc('gutters')">
-      <div class="svc-chkbox"></div><span class="svc-icon">🌿</span>
+      <div class="svc-chkbox"></div><span class="svc-icon">🌧️</span>
       <div class="svc-body"><div class="svc-name">Gutter Brightening</div><div class="svc-rate">Exterior face of gutters</div></div>
     </div>
     <div class="svc-check" id="svc-deck" onclick="toggleSvc('deck')">
@@ -549,12 +820,12 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
       <div class="svc-body"><div class="svc-name">Deck Cleaning</div><div class="svc-rate">Wood, composite, vinyl & concrete</div></div>
     </di
     <div class="svc-check" id="svc-deckrest" onclick="toggleSvc('deckrest')">
-      <div class="svc-chkbox"></div><span class="svc-icon">🔨</span>
+      <div class="svc-chkbox"></div><span class="svc-icon">🪵</span>
       <div class="svc-body"><div class="svc-name">Deck Services</div>
       <div class="svc-rate">Staining, sealing & minor repairs</div></div>
     </div>v>
     <div class="svc-check" id="svc-pool" onclick="toggleSvc('pool')">
-      <div class="svc-chkbox"></div><span class="svc-icon">🏊</span>
+      <div class="svc-chkbox"></div><span class="svc-icon">🫧</span>
       <div class="svc-body"><div class="svc-name">Pool Deck</div><div class="svc-rate">Concrete & paver decks</div></div>
     </div>
     <div class="svc-check" id="svc-windows" onclick="toggleSvc('windows')">
@@ -567,17 +838,17 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
       <div class="svc-rate">Vinyl, wood, chain link</div></div>
     </di
     <div class="svc-check" id="svc-fencerest" onclick="toggleSvc('fencerest')">
-      <div class="svc-chkbox"></div><span class="svc-icon">🔧</span>
+      <div class="svc-chkbox"></div><span class="svc-icon">🚧</span>
       <div class="svc-body"><div class="svc-name">Fence Services</div>
       <div class="svc-rate">Staining, sealing & board replacement</div></div>
     </div>v>
     <div class="svc-check" id="svc-rust" onclick="toggleSvc('rust')">
-      <div class="svc-chkbox"></div><span class="svc-icon">🟤</span>
+      <div class="svc-chkbox"></div><span class="svc-icon">🧪</span>
       <div class="svc-body"><div class="svc-name">Rust / Stain Treatment</div>
       <div class="svc-rate">Irrigation rust, tire marks, organic stains</div></div>
     </div>
     <div class="svc-check" id="svc-grave" onclick="toggleSvc('grave')">
-      <div class="svc-chkbox"></div><span class="svc-icon">⚰️</span>
+      <div class="svc-chkbox"></div><span class="svc-icon">🪦</span>
       <div class="svc-body"><div class="svc-name">Gravestone / Monument Cleaning</div><div class="svc-rate">Priced per stone — TLC will confirm</div></div>
     </div>
     <div class="svc-check" id="svc-other" onclick="toggleSvc('other')">
@@ -753,17 +1024,17 @@ function confirmSiding(){
 var upsellSelected = {};
 
 var UPSELL_ALL = [
-  { key:'driveway',  icon:'🚗', label:'Driveway & Walkways' },
-  { key:'patio',     icon:'🪴', label:'Patio Cleaning' },
-  { key:'gutters',   icon:'🌿', label:'Gutter Brightening' },
+  { key:'driveway',  icon:'🛣️', label:'Driveway & Walkways' },
+  { key:'patio',     icon:'🪨', label:'Patio Cleaning' },
+  { key:'gutters',   icon:'🌧️', label:'Gutter Brightening' },
   { key:'roof',      icon:'🏠', label:'Roof Soft Wash' },
   { key:'windows',   icon:'🪟', label:'Window Cleaning' },
   { key:'deck',      icon:'🪵', label:'Deck Cleaning' },
   { key:'deckrest',  icon:'🔨', label:'Deck Services' },
-  { key:'pool',      icon:'🏊', label:'Pool Deck' },
+  { key:'pool',      icon:'🫧', label:'Pool Deck' },
   { key:'fence',     icon:'🪵', label:'Fence Washing' },
-  { key:'fencerest', icon:'🔧', label:'Fence Services' },
-  { key:'rust',      icon:'🟤', label:'Rust / Stain Treatment' },
+  { key:'fencerest', icon:'🚧', label:'Fence Services' },
+  { key:'rust',      icon:'🧪', label:'Rust / Stain Treatment' },
   { key:'graffiti',  icon:'🎨', label:'Graffiti Removal' },
   { key:'grave',     icon:'🪦', label:'Monument / Gravestone' },
   { key:'other',     icon:'❓', label:'Something Else' },
@@ -880,11 +1151,11 @@ function upsellQNext(){
 function buildUpsellQHTML(id){
   if(id==='uq-driveway') return '<div class="qcard"><h2>🚗 Driveway size?</h2><div class="qsub">Pick closest or enter sq ft</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickDriveway(\'1car\',this)"><span class="sb-icon">🚗</span><div class="sb-title">1-Car</div><div class="sb-desc">~400 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickDriveway(\'2car\',this)"><span class="sb-icon">🚗🚗</span><div class="sb-title">2-Car</div><div class="sb-desc">~640 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickDriveway(\'large\',this)"><span class="sb-icon">🏠</span><div class="sb-title">Large</div><div class="sb-desc">~900+ sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickDriveway(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Sq Ft</div><div class="sb-desc">More accurate</div><div class="sb-price">TLC confirms</div></div></div><div id="uqDrivewaySqftInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Square feet:</label><input type="number" id="uqDrivewayFt" placeholder="e.g. 640" min="100" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmDriveway()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
 
-  if(id==='uq-patio') return '<div class="qcard"><h2>🪴 Patio / Walkway size?</h2><div class="qsub">Pick closest or enter sq ft</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickPatio(\'small\',this)"><span class="sb-icon">🪑</span><div class="sb-title">Small</div><div class="sb-desc">~200 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickPatio(\'medium\',this)"><span class="sb-icon">🪑🪑</span><div class="sb-title">Medium</div><div class="sb-desc">~400 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickPatio(\'large\',this)"><span class="sb-icon">🏡</span><div class="sb-title">Large</div><div class="sb-desc">~700 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickPatio(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Sq Ft</div><div class="sb-price">TLC confirms</div></div></div><div id="uqPatioSqftInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Square feet:</label><input type="number" id="uqPatioFt" placeholder="e.g. 400" min="50" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmPatio()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
+  if(id==='uq-patio') return '<div class="qcard"><h2>🧱 Patio / Walkway size?</h2><div class="qsub">Pick closest or enter sq ft</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickPatio(\'small\',this)"><span class="sb-icon">🪑</span><div class="sb-title">Small</div><div class="sb-desc">~200 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickPatio(\'medium\',this)"><span class="sb-icon">🪑🪑</span><div class="sb-title">Medium</div><div class="sb-desc">~400 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickPatio(\'large\',this)"><span class="sb-icon">🏡</span><div class="sb-title">Large</div><div class="sb-desc">~700 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickPatio(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Sq Ft</div><div class="sb-price">TLC confirms</div></div></div><div id="uqPatioSqftInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Square feet:</label><input type="number" id="uqPatioFt" placeholder="e.g. 400" min="50" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmPatio()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
 
   if(id==='uq-gutters') return '<div class="qcard"><h2>🌿 Gutter linear footage?</h2><div class="qsub">Exterior face of gutters</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickGutters(\'small\',this)"><span class="sb-icon">🏠</span><div class="sb-title">Small Home</div><div class="sb-desc">~120 linear ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickGutters(\'medium\',this)"><span class="sb-icon">🏡</span><div class="sb-title">Medium Home</div><div class="sb-desc">~160 linear ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickGutters(\'large\',this)"><span class="sb-icon">🏘️</span><div class="sb-title">Large Home</div><div class="sb-desc">~200+ linear ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickGutters(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Footage</div><div class="sb-price">TLC confirms</div></div></div><div id="uqGuttersFtInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Linear feet:</label><input type="number" id="uqGuttersFt" placeholder="e.g. 150" min="20" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmGutters()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
 
-  if(id==='uq-roofpitch') return '<div class="qcard"><h2>🏠 Roof pitch?</h2><div class="qsub">Tap the shape that looks most like your roof</div><div class="note-box">⚠️ Steep or 3-story roofs require on-site confirmation.</div><div class="choice" onclick="uqPickRoof(\'low\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none"><rect x="5" y="32" width="70" height="14" fill="#d4a574" rx="2"/><polygon points="5,32 75,32 75,28 40,18 5,28" fill="#8B6914"/><polygon points="5,28 40,18 75,28" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Gentle Slope (4/12 or less)</div><div class="choice-mod">Base rate</div></div></div><div class="choice" onclick="uqPickRoof(\'medium\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none"><rect x="5" y="36" width="70" height="10" fill="#d4a574" rx="2"/><polygon points="5,36 75,36 75,32 40,8 5,32" fill="#8B6914"/><polygon points="5,32 40,8 75,32" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Moderate Slope (5/12–8/12)</div><div class="choice-mod warn">+15%</div></div></div><div class="choice" onclick="uqPickRoof(\'steep\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none"><rect x="5" y="40" width="70" height="8" fill="#d4a574" rx="2"/><polygon points="5,40 75,40 75,36 40,4 5,36" fill="#8B6914"/><polygon points="5,36 40,4 75,36" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Steep Slope (9/12+)</div><div class="choice-mod danger">+25% — On-site required</div></div></div></div>';
+  if(id==='uq-roofpitch') return '<div class="qcard"><h2>🏠 Roof pitch?</h2><div class="qsub">Tap the shape that looks most like your roof</div><div class="note-box">⚠️ Steep or 3-story roofs require on-site confirmation.</div><div class="choice" onclick="uqPickRoof(\'low\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none"><rect x="5" y="32" width="70" height="14" fill="#d4a574" rx="2"/><polygon points="5,32 75,32 75,28 40,18 5,28" fill="#8B6914"/><polygon points="5,28 40,18 75,28" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Gentle Slope (4/12 or less)</div><div class="choice-mod">Standard rate</div></div></div><div class="choice" onclick="uqPickRoof(\'medium\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none"><rect x="5" y="36" width="70" height="10" fill="#d4a574" rx="2"/><polygon points="5,36 75,36 75,32 40,8 5,32" fill="#8B6914"/><polygon points="5,32 40,8 75,32" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Moderate Slope (5/12–8/12)</div><div class="choice-mod warn">+15%</div></div></div><div class="choice" onclick="uqPickRoof(\'steep\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none"><rect x="5" y="40" width="70" height="8" fill="#d4a574" rx="2"/><polygon points="5,40 75,40 75,36 40,4 5,36" fill="#8B6914"/><polygon points="5,36 40,4 75,36" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Steep Slope (9/12+)</div><div class="choice-mod danger">+25% — On-site required</div></div></div></div>';
 
   if(id==='uq-windows') return '<div class="qcard"><h2>🪟 How many windows?</h2><div class="qsub">Exterior cleaning</div><div class="note-box">TLC will confirm final window count pricing on-site.</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickWindows(10,this)"><span class="sb-icon">🪟</span><div class="sb-title">~10 Windows</div><div class="sb-price">Flat rate</div></div><div class="size-btn" onclick="uqPickWindows(20,this)"><span class="sb-icon">🪟🪟</span><div class="sb-title">~20 Windows</div><div class="sb-price">Flat rate</div></div><div class="size-btn" onclick="uqPickWindows(30,this)"><span class="sb-icon">🏠</span><div class="sb-title">~30 Windows</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickWindows(0,this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Count</div><div class="sb-price">TLC confirms</div></div></div><div id="uqWindowsInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Number of windows:</label><input type="number" id="uqWindowCount" placeholder="e.g. 20" min="1" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmWindows()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
 
@@ -1295,7 +1566,7 @@ function buildCustomQHTML(id){
     choiceHTML('large','Large — 2,500+ sq ft','Larger or custom builds','','cq')+'</div>';
 
   if(id==='siding') return '<div class="qcard"><h2>🧱 Siding type?</h2><div class="qsub">Affects cleaning method and time</div>'+
-    choiceHTML('vinyl','Vinyl Siding','','Base rate','cq')+
+    choiceHTML('vinyl','Vinyl Siding','','Standard rate','cq')+
     choiceHTML('brick','Brick','','','cq')+
     choiceHTML('wood','Wood / Hardiplank','','','cq')+
     choiceHTML('stucco','Stucco','','','cq')+'</div>';
@@ -1317,7 +1588,7 @@ function buildCustomQHTML(id){
 
   if(id==='driveway') return '<div class="qcard"><h2>🚗 Driveway size?</h2><div class="qsub">Pick closest or enter sq ft for accuracy</div><div class="note-box">💡 TLC confirms exact pricing after reviewing your property.</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="pickDriveway(\'1car\',this)"><span class="sb-icon">🚗</span><div class="sb-title">1-Car</div><div class="sb-desc">~400 sq ft</div><div class="sb-price">~0</div></div><div class="size-btn" onclick="pickDriveway(\'2car\',this)"><span class="sb-icon">🚗🚗</span><div class="sb-title">2-Car</div><div class="sb-desc">~640 sq ft</div><div class="sb-price">~60</div></div><div class="size-btn" onclick="pickDriveway(\'large\',this)"><span class="sb-icon">🏠</span><div class="sb-title">Large / Extended</div><div class="sb-desc">~900+ sq ft</div><div class="sb-price">~25+</div></div><div class="size-btn" onclick="pickDriveway(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Sq Ft</div><div class="sb-desc">More accurate</div><div class="sb-price">TLC confirms</div></div></div><div id="drivewaySqftInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;color:#333;display:block;margin-bottom:6px;">Driveway square feet:</label><input type="number" id="drivewayFt" placeholder="e.g. 640" min="100" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="confirmDrivewaySqft()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
 
-  if(id==='patio') return '<div class="qcard"><h2>🪴 Patio / Walkway size?</h2><div class="qsub">Pick closest or enter sq ft for accuracy</div><div class="note-box">💡 TLC confirms exact pricing after reviewing your property.</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="pickPatio(\'small\',this)"><span class="sb-icon">🪑</span><div class="sb-title">Small</div><div class="sb-desc">~200 sq ft</div><div class="sb-price">~0</div></div><div class="size-btn" onclick="pickPatio(\'medium\',this)"><span class="sb-icon">🪑🪑</span><div class="sb-title">Medium</div><div class="sb-desc">~400 sq ft</div><div class="sb-price">~00</div></div><div class="size-btn" onclick="pickPatio(\'large\',this)"><span class="sb-icon">🏡</span><div class="sb-title">Large</div><div class="sb-desc">~700 sq ft</div><div class="sb-price">~75</div></div><div class="size-btn" onclick="pickPatio(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Sq Ft</div><div class="sb-desc">More accurate</div><div class="sb-price">TLC confirms</div></div></div><div id="patioSqftInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;color:#333;display:block;margin-bottom:6px;">Patio/walkway square feet:</label><input type="number" id="patioFt" placeholder="e.g. 400" min="50" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="confirmPatioSqft()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
+  if(id==='patio') return '<div class="qcard"><h2>🧱 Patio / Walkway size?</h2><div class="qsub">Pick closest or enter sq ft for accuracy</div><div class="note-box">💡 TLC confirms exact pricing after reviewing your property.</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="pickPatio(\'small\',this)"><span class="sb-icon">🪑</span><div class="sb-title">Small</div><div class="sb-desc">~200 sq ft</div><div class="sb-price">~0</div></div><div class="size-btn" onclick="pickPatio(\'medium\',this)"><span class="sb-icon">🪑🪑</span><div class="sb-title">Medium</div><div class="sb-desc">~400 sq ft</div><div class="sb-price">~00</div></div><div class="size-btn" onclick="pickPatio(\'large\',this)"><span class="sb-icon">🏡</span><div class="sb-title">Large</div><div class="sb-desc">~700 sq ft</div><div class="sb-price">~75</div></div><div class="size-btn" onclick="pickPatio(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Sq Ft</div><div class="sb-desc">More accurate</div><div class="sb-price">TLC confirms</div></div></div><div id="patioSqftInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;color:#333;display:block;margin-bottom:6px;">Patio/walkway square feet:</label><input type="number" id="patioFt" placeholder="e.g. 400" min="50" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="confirmPatioSqft()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
 
   if(id==='gutters') return '<div class="qcard"><h2>🌿 Gutter linear footage?</h2><div class="qsub">Gutter brightening — exterior face of gutters</div><div class="note-box">💡 Most homes: 1-story ~100–150 ft, 2-story ~150–200 ft. TLC confirms exact length on-site.</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="pickGutters(\'small\',this)"><span class="sb-icon">🏠</span><div class="sb-title">Small Home</div><div class="sb-desc">~120 linear ft</div><div class="sb-price">~0</div></div><div class="size-btn" onclick="pickGutters(\'medium\',this)"><span class="sb-icon">🏡</span><div class="sb-title">Medium Home</div><div class="sb-desc">~160 linear ft</div><div class="sb-price">~20</div></div><div class="size-btn" onclick="pickGutters(\'large\',this)"><span class="sb-icon">🏘️</span><div class="sb-title">Large Home</div><div class="sb-desc">~200+ linear ft</div><div class="sb-price">~50+</div></div><div class="size-btn" onclick="pickGutters(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Footage</div><div class="sb-desc">More accurate</div><div class="sb-price">TLC confirms</div></div></div><div id="guttersFtInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;color:#333;display:block;margin-bottom:6px;">Linear feet of gutters:</label><input type="number" id="guttersFt" placeholder="e.g. 150" min="20" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="confirmGuttersFt()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
 
