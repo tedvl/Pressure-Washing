@@ -234,13 +234,20 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
       <div class="csvc-tile" data-svc="roof" onclick="toggleLandingTile(this,'roof')">🏠<span>Roof Soft Wash</span></div>
       <div class="csvc-tile" data-svc="patio" onclick="toggleLandingTile(this,'patio')">🪴<span>Patio / Walkways</span></div>
       <div class="csvc-tile" data-svc="gutters" onclick="toggleLandingTile(this,'gutters')">🌿<span>Gutter Brightening</span></div>
-      <div class="csvc-tile" data-svc="deck" onclick="toggleLandingTile(this,'deck')">🪵<span>Deck Cleaning</span></div>
+      <div class="csvc-tile" data-svc="deckrest" onclick="toggleLandingTile(this,'deckrest')">🪵<span>Deck Services</span></div>
       <div class="csvc-tile" data-svc="pool" onclick="toggleLandingTile(this,'pool')">🏊<span>Pool Deck</span></div>
       <div class="csvc-tile" data-svc="windows" onclick="toggleLandingTile(this,'windows')">🪟<span>Windows</span></div>
+      <div class="csvc-tile" data-svc="fencerest" onclick="toggleLandingTile(this,'fencerest')">🔧<span>Fence Services</span></div>
+      <div class="csvc-tile" data-svc="rust" onclick="toggleLandingTile(this,'rust')">🟤<span>Rust / Stain</span></div>
+      <div class="csvc-tile" data-svc="graffiti" onclick="toggleLandingTile(this,'graffiti')">🎨<span>Graffiti Removal</span></div>
       <div class="csvc-tile" data-svc="grave" onclick="toggleLandingTile(this,'grave')">⚰️<span>Gravestones</span></div>
       <div class="csvc-tile" data-svc="other" onclick="toggleLandingTile(this,'other')">💬<span>Something Else</span></div>
     </div>
     <div id="tileSelCount" style="text-align:center;font-size:0.82rem;color:#7DC242;font-weight:700;min-height:20px;margin-bottom:8px;"></div>
+    <div id="landing-other-wrap" style="display:none;margin-top:10px;">
+      <label style="font-size:0.82rem;font-weight:800;color:#c0392b;display:block;margin-bottom:5px;">⚠️ Required — briefly describe what you need:</label>
+      <textarea id="landingOtherDesc" rows="3" placeholder="e.g. concrete staining, commercial building, fence cleaning..." style="width:100%;padding:12px;border:2.5px solid #c0392b;border-radius:10px;font-size:0.95rem;font-family:inherit;resize:vertical;background:#fff8f8;box-shadow:0 0 0 3px rgba(192,57,43,0.12);box-sizing:border-box;"></textarea>
+    </div>
     <button class="custom-btn" onclick="startCustomFromTiles()">🎯 Build Custom Quote →</button>
   </div>
   <div style="background:#e8f7ff;border-left:4px solid #3AABCD;border-radius:8px;padding:12px 15px;margin:0 0 16px;font-size:0.82rem;color:#2a6070;line-height:1.6;">
@@ -287,11 +294,33 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
   <!-- Q: Siding -->
   <div id="wq-siding" class="qcard" style="display:none;">
     <h2>🧱 What type of siding?</h2>
-    <div class="qsub">Affects cleaning method and time</div>
-    <div class="choice" onclick="wizPick('siding','vinyl',this)"><div class="choice-radio"></div><div class="choice-body"><div class="choice-title">Vinyl Siding</div><div class="choice-mod">Base rate</div></div></div>
-    <div class="choice" onclick="wizPick('siding','brick',this)"><div class="choice-radio"></div><div class="choice-body"><div class="choice-title">Brick</div></div></div>
-    <div class="choice" onclick="wizPick('siding','wood',this)"><div class="choice-radio"></div><div class="choice-body"><div class="choice-title">Wood / Hardiplank</div></div></div>
-    <div class="choice" onclick="wizPick('siding','stucco',this)"><div class="choice-radio"></div><div class="choice-body"><div class="choice-title">Stucco</div></div></div>
+    <div class="qsub">Select all that apply — many homes have a mix!</div>
+    <div class="note-box">💡 e.g. Brick front with Hardiplank sides is very common. TLC prices based on the predominant material.</div>
+    <div class="choice siding-multi" id="sid-vinyl" onclick="toggleSiding('vinyl',this)">
+      <div class="choice-radio"></div>
+      <div class="choice-body"><div class="choice-title">Vinyl Siding</div><div class="choice-mod">Base rate</div></div>
+    </div>
+    <div class="choice siding-multi" id="sid-hardiplank" onclick="toggleSiding('hardiplank',this)">
+      <div class="choice-radio"></div>
+      <div class="choice-body"><div class="choice-title">Hardiplank / Fiber Cement</div><div class="choice-mod">Base rate</div></div>
+    </div>
+    <div class="choice siding-multi" id="sid-brick" onclick="toggleSiding('brick',this)">
+      <div class="choice-radio"></div>
+      <div class="choice-body"><div class="choice-title">Brick</div><div class="choice-mod">+30%</div></div>
+    </div>
+    <div class="choice siding-multi" id="sid-wood" onclick="toggleSiding('wood',this)">
+      <div class="choice-radio"></div>
+      <div class="choice-body"><div class="choice-title">Wood</div><div class="choice-mod">+25%</div></div>
+    </div>
+    <div class="choice siding-multi" id="sid-stucco" onclick="toggleSiding('stucco',this)">
+      <div class="choice-radio"></div>
+      <div class="choice-body"><div class="choice-title">Stucco</div><div class="choice-mod">+50%</div></div>
+    </div>
+    <div class="choice siding-multi" id="sid-mixed" onclick="toggleSiding('mixed',this)">
+      <div class="choice-radio"></div>
+      <div class="choice-body"><div class="choice-title">Mixed / Not Sure</div><div class="choice-mod">TLC confirms on-site</div></div>
+    </div>
+    <button id="sidingContinueBtn" onclick="confirmSiding()" style="display:none;width:100%;margin-top:14px;padding:14px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:30px;font-size:1rem;font-weight:800;cursor:pointer;">Continue →</button>
   </div>
 
   <!-- Q: Stories -->
@@ -331,19 +360,19 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
         <span class="sb-icon">🚗</span>
         <div class="sb-title">1-Car</div>
         <div class="sb-desc">~400 sq ft</div>
-        <div class="sb-price">~$100</div>
+        <div class="sb-price">TLC confirms</div>
       </div>
       <div class="size-btn" onclick="pickDriveway('2car',this)">
         <span class="sb-icon">🚗🚗</span>
         <div class="sb-title">2-Car</div>
         <div class="sb-desc">~640 sq ft</div>
-        <div class="sb-price">~$160</div>
+        <div class="sb-price">TLC confirms</div>
       </div>
       <div class="size-btn" onclick="pickDriveway('large',this)">
         <span class="sb-icon">🏠</span>
         <div class="sb-title">Large / Extended</div>
         <div class="sb-desc">~900+ sq ft</div>
-        <div class="sb-price">~$225+</div>
+        <div class="sb-price">TLC confirms</div>
       </div>
       <div class="size-btn" onclick="pickDriveway('sqft',this)" id="drivewaySqftBtn">
         <span class="sb-icon">📐</span>
@@ -369,19 +398,19 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
         <span class="sb-icon">🪑</span>
         <div class="sb-title">Small</div>
         <div class="sb-desc">~200 sq ft</div>
-        <div class="sb-price">~$50</div>
+        <div class="sb-price">TLC confirms</div>
       </div>
       <div class="size-btn" onclick="pickPatio('medium',this)">
         <span class="sb-icon">🪑🪑</span>
         <div class="sb-title">Medium</div>
         <div class="sb-desc">~400 sq ft</div>
-        <div class="sb-price">~$80</div>
+        <div class="sb-price">TLC confirms</div>
       </div>
       <div class="size-btn" onclick="pickPatio('large',this)">
         <span class="sb-icon">🏡</span>
         <div class="sb-title">Large</div>
         <div class="sb-desc">~700 sq ft</div>
-        <div class="sb-price">~$175</div>
+        <div class="sb-price">TLC confirms</div>
       </div>
       <div class="size-btn" onclick="pickPatio('sqft',this)" id="patioSqftBtn">
         <span class="sb-icon">📐</span>
@@ -407,19 +436,19 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
         <span class="sb-icon">🏠</span>
         <div class="sb-title">Small Home</div>
         <div class="sb-desc">~120 linear ft</div>
-        <div class="sb-price">~$90</div>
+        <div class="sb-price">TLC confirms</div>
       </div>
       <div class="size-btn" onclick="pickGutters('medium',this)">
         <span class="sb-icon">🏡</span>
         <div class="sb-title">Medium Home</div>
         <div class="sb-desc">~160 linear ft</div>
-        <div class="sb-price">~$120</div>
+        <div class="sb-price">TLC confirms</div>
       </div>
       <div class="size-btn" onclick="pickGutters('large',this)">
         <span class="sb-icon">🏘️</span>
         <div class="sb-title">Large Home</div>
         <div class="sb-desc">~200+ linear ft</div>
-        <div class="sb-price">~$150+</div>
+        <div class="sb-price">TLC confirms</div>
       </div>
       <div class="size-btn" onclick="pickGutters('sqft',this)">
         <span class="sb-icon">📐</span>
@@ -450,7 +479,7 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
       <div class="choice-body">
         <div class="choice-title">Gentle Slope (4/12 or less)</div>
         <div class="choice-desc">Looks nearly flat from the ground • Common on ranches</div>
-        <div class="choice-mod">Base rate — $0.40/sq ft</div>
+        <div class="choice-mod">Standard rate</div>
       </div>
     </div>
 
@@ -497,35 +526,55 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
     <h2 style="font-size:1rem;margin-bottom:12px;">What services do you need?</h2>
     <div class="svc-check" id="svc-housewash" onclick="toggleSvc('housewash')">
       <div class="svc-chkbox"></div><span class="svc-icon">🏠</span>
-      <div class="svc-body"><div class="svc-name">House Wash</div><div class="svc-rate">$0.18/sq ft • material type adjusts price</div></div>
+      <div class="svc-body"><div class="svc-name">House Wash</div><div class="svc-rate">Soft wash • siding type affects price</div></div>
     </div>
     <div class="svc-check" id="svc-driveway" onclick="toggleSvc('driveway')">
       <div class="svc-chkbox"></div><span class="svc-icon">🚗</span>
-      <div class="svc-body"><div class="svc-name">Driveway / Flatwork</div><div class="svc-rate">$0.25/sq ft</div></div>
+      <div class="svc-body"><div class="svc-name">Driveway / Flatwork</div><div class="svc-rate">Pressure wash • surface cleaning</div></div>
     </div>
     <div class="svc-check" id="svc-roof" onclick="toggleSvc('roof')">
       <div class="svc-chkbox"></div><span class="svc-icon">🏠</span>
-      <div class="svc-body"><div class="svc-name">Roof Soft Wash</div><div class="svc-rate">$0.40/sq ft • Pitch & stories affect price</div></div>
+      <div class="svc-body"><div class="svc-name">Roof Soft Wash</div><div class="svc-rate">Soft wash • pitch & stories affect price</div></div>
     </div>
     <div class="svc-check" id="svc-patio" onclick="toggleSvc('patio')">
       <div class="svc-chkbox"></div><span class="svc-icon">🪴</span>
-      <div class="svc-body"><div class="svc-name">Patio / Walkways</div><div class="svc-rate">$0.25/sq ft</div></div>
+      <div class="svc-body"><div class="svc-name">Patio / Walkways</div><div class="svc-rate">Pressure wash • surface cleaning</div></div>
     </div>
     <div class="svc-check" id="svc-gutters" onclick="toggleSvc('gutters')">
       <div class="svc-chkbox"></div><span class="svc-icon">🌿</span>
-      <div class="svc-body"><div class="svc-name">Gutter Brightening</div><div class="svc-rate">$0.75/linear ft</div></div>
+      <div class="svc-body"><div class="svc-name">Gutter Brightening</div><div class="svc-rate">Exterior face of gutters</div></div>
     </div>
     <div class="svc-check" id="svc-deck" onclick="toggleSvc('deck')">
       <div class="svc-chkbox"></div><span class="svc-icon">🪵</span>
-      <div class="svc-body"><div class="svc-name">Deck Cleaning</div><div class="svc-rate">Wood $0.625/sq ft • Composite $0.425/sq ft</div></div>
-    </div>
+      <div class="svc-body"><div class="svc-name">Deck Cleaning</div><div class="svc-rate">Wood, composite, vinyl & concrete</div></div>
+    </di
+    <div class="svc-check" id="svc-deckrest" onclick="toggleSvc('deckrest')">
+      <div class="svc-chkbox"></div><span class="svc-icon">🔨</span>
+      <div class="svc-body"><div class="svc-name">Deck Services</div>
+      <div class="svc-rate">Staining, sealing & minor repairs</div></div>
+    </div>v>
     <div class="svc-check" id="svc-pool" onclick="toggleSvc('pool')">
       <div class="svc-chkbox"></div><span class="svc-icon">🏊</span>
-      <div class="svc-body"><div class="svc-name">Pool Deck</div><div class="svc-rate">$0.40/sq ft</div></div>
+      <div class="svc-body"><div class="svc-name">Pool Deck</div><div class="svc-rate">Concrete & paver decks</div></div>
     </div>
     <div class="svc-check" id="svc-windows" onclick="toggleSvc('windows')">
       <div class="svc-chkbox"></div><span class="svc-icon">🪟</span>
-      <div class="svc-body"><div class="svc-name">Window Cleaning (Exterior)</div><div class="svc-rate">$175 up to 20 windows • +$25/5 additional</div></div>
+      <div class="svc-body"><div class="svc-name">Window Cleaning (Exterior)</div><div class="svc-rate">Exterior window cleaning</div></div>
+    </div>
+    <div class="svc-check" id="svc-fence" onclick="toggleSvc('fence')">
+      <div class="svc-chkbox"></div><span class="svc-icon">🪵</span>
+      <div class="svc-body"><div class="svc-name">Fence Washing</div>
+      <div class="svc-rate">Vinyl, wood, chain link</div></div>
+    </di
+    <div class="svc-check" id="svc-fencerest" onclick="toggleSvc('fencerest')">
+      <div class="svc-chkbox"></div><span class="svc-icon">🔧</span>
+      <div class="svc-body"><div class="svc-name">Fence Services</div>
+      <div class="svc-rate">Staining, sealing & board replacement</div></div>
+    </div>v>
+    <div class="svc-check" id="svc-rust" onclick="toggleSvc('rust')">
+      <div class="svc-chkbox"></div><span class="svc-icon">🟤</span>
+      <div class="svc-body"><div class="svc-name">Rust / Stain Treatment</div>
+      <div class="svc-rate">Irrigation rust, tire marks, organic stains</div></div>
     </div>
     <div class="svc-check" id="svc-grave" onclick="toggleSvc('grave')">
       <div class="svc-chkbox"></div><span class="svc-icon">⚰️</span>
@@ -535,8 +584,9 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
       <div class="svc-chkbox"></div><span class="svc-icon">💬</span>
       <div class="svc-body"><div class="svc-name">Something Else</div><div class="svc-rate">Graffiti removal, commercial, fleet, etc.</div></div>
     </div>
-    <div id="other-desc-wrap" style="display:none;margin-top:8px;">
-      <textarea id="otherDesc" rows="2" placeholder="Briefly describe what you need..." style="width:100%;padding:11px;border:2px solid #3AABCD;border-radius:10px;font-size:0.95rem;font-family:inherit;resize:vertical;"></textarea>
+    <div id="other-desc-wrap" style="display:none;margin-top:10px;">
+      <label style="font-size:0.82rem;font-weight:800;color:#c0392b;display:block;margin-bottom:5px;">⚠️ Required — tell us what you need:</label>
+      <textarea id="otherDesc" rows="3" placeholder="e.g. concrete staining, commercial building, fence cleaning..." style="width:100%;padding:12px;border:2.5px solid #c0392b;border-radius:10px;font-size:0.95rem;font-family:inherit;resize:vertical;background:#fff8f8;box-shadow:0 0 0 3px rgba(192,57,43,0.12);box-sizing:border-box;"></textarea>
     </div>
   </div>
 
@@ -556,14 +606,45 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
 </div>
 </div>
 
+<!-- ===== UPSELL ADD-ON QUESTIONS ===== -->
+<div id="screen-upsellq" class="screen">
+<div class="wizard">
+  <div class="back-link" onclick="upsellQBack()">← Back</div>
+  <div class="progress-bar"><div class="progress-fill" id="upsellQProgress" style="width:0%"></div></div>
+  <div class="step-label" id="upsellQLabel"></div>
+  <div id="upsellQContainer"></div>
+</div>
+</div>
+
+<!-- ===== UPSELL ADD-ONS ===== -->
+<div id="screen-upsell" class="screen">
+<div class="wizard">
+  <div class="back-link" onclick="upsellBack()">← Back</div>
+  <div style="background:linear-gradient(135deg,#7DC242,#5B9E2E);color:white;border-radius:14px;padding:14px 18px;text-align:center;margin-bottom:16px;">
+    <div style="font-size:1.1rem;font-weight:800;">🎉 Almost done!</div>
+    <div style="font-size:0.88rem;opacity:0.9;margin-top:4px;">Want to add anything else while TLC is there?</div>
+  </div>
+  <div style="background:white;border-radius:14px;padding:16px;margin-bottom:16px;">
+    <div style="font-size:0.82rem;color:#666;margin-bottom:12px;text-align:center;">Tap any service to add it — or skip to see your quote</div>
+    <div id="upsellTiles" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+  </div>
+  <button onclick="upsellDone()" style="width:100%;padding:16px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:30px;font-size:1rem;font-weight:800;cursor:pointer;margin-bottom:10px;">See My Quote →</button>
+  <p style="text-align:center;font-size:0.78rem;color:#999;">Selected add-ons will be included in your estimate</p>
+</div>
+</div>
+
 <!-- ===== RESULT ===== -->
 <div id="screen-result" class="screen">
 <div class="result">
-  <div class="back-link" id="resultBackBtn" onclick="goResultBack()">← Adjust</div>
+  <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;">
+    <div class="back-link" id="resultBackBtn" onclick="goResultBack()">← Adjust</div>
+    <div class="back-link" id="changePkgBtn" onclick="show('wizard')" style="display:none;">⇄ Change Package</div>
+  </div>
   <div class="price-hero">
     <h2>Your Estimated Price Range</h2>
     <div class="amount" id="resultPrice"></div>
     <div class="disc">Approximate • TLC confirms exact price before work begins</div>
+    <div id="resultNotes"></div>
   </div>
   <div class="breakdown" id="resultBreakdown"></div>
   <button class="big-btn" onclick="show('contact')">Request My Quote →</button>
@@ -626,6 +707,285 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
 </div>
 
 <script>
+// ── SIDING MULTI-SELECT ──
+var sidingSelections = {};
+var SIDING_MULT_MAP = { vinyl:1.0, hardiplank:1.10, brick:1.30, wood:1.25, stucco:1.50, mixed:1.20 };
+
+function toggleSiding(key, el){
+  if(sidingSelections[key]){
+    delete sidingSelections[key];
+    el.classList.remove('selected');
+    el.querySelector('.choice-radio').style.background = '';
+    el.querySelector('.choice-radio').style.borderColor = '';
+  } else {
+    sidingSelections[key] = true;
+    el.classList.add('selected');
+    el.querySelector('.choice-radio').style.background = '#3AABCD';
+    el.querySelector('.choice-radio').style.borderColor = '#3AABCD';
+  }
+  // Show continue button once at least one selected
+  var btn = document.getElementById('sidingContinueBtn');
+  if(btn) btn.style.display = Object.keys(sidingSelections).length > 0 ? 'block' : 'none';
+}
+
+function confirmSiding(){
+  if(Object.keys(sidingSelections).length === 0){ alert('Please select at least one siding type.'); return; }
+  // Calculate blended multiplier (average of selected)
+  var keys = Object.keys(sidingSelections);
+  var total = 0;
+  keys.forEach(function(k){ total += (SIDING_MULT_MAP[k] || 1.0); });
+  var blended = total / keys.length;
+  est.siding = keys.join('+');
+  est.sidingMult = blended;
+  sidingSelections = {};
+  // Reset radio styles
+  document.querySelectorAll('.siding-multi').forEach(function(el){
+    el.classList.remove('selected');
+    var r = el.querySelector('.choice-radio');
+    if(r){ r.style.background=''; r.style.borderColor=''; }
+  });
+  document.getElementById('sidingContinueBtn').style.display = 'none';
+  wizIdx++;
+  if(wizIdx >= wizSteps.length){ showUpsell(); } else { showWizStep(); }
+}
+
+// ── UPSELL ADD-ONS ──
+var upsellSelected = {};
+
+var UPSELL_ALL = [
+  { key:'driveway',  icon:'🚗', label:'Driveway & Walkways' },
+  { key:'patio',     icon:'🪴', label:'Patio Cleaning' },
+  { key:'gutters',   icon:'🌿', label:'Gutter Brightening' },
+  { key:'roof',      icon:'🏠', label:'Roof Soft Wash' },
+  { key:'windows',   icon:'🪟', label:'Window Cleaning' },
+  { key:'deck',      icon:'🪵', label:'Deck Cleaning' },
+  { key:'deckrest',  icon:'🔨', label:'Deck Services' },
+  { key:'pool',      icon:'🏊', label:'Pool Deck' },
+  { key:'fence',     icon:'🪵', label:'Fence Washing' },
+  { key:'fencerest', icon:'🔧', label:'Fence Services' },
+  { key:'rust',      icon:'🟤', label:'Rust / Stain Treatment' },
+  { key:'graffiti',  icon:'🎨', label:'Graffiti Removal' },
+  { key:'grave',     icon:'🪦', label:'Monument / Gravestone' },
+  { key:'other',     icon:'❓', label:'Something Else' },
+];
+
+function showUpsell(){
+  upsellSelected = {};
+  var pkg = est.pkg;
+  // Determine which services are already in the package
+  var included = {
+    'curb-appeal': [],
+    'exterior-refresh': ['driveway','patio'],
+    'complete-property': ['driveway','patio','gutters'],
+    'premium': ['driveway','patio','gutters','roof']
+  }[pkg] || [];
+
+  // Build tiles for services NOT already in package
+  var tiles = UPSELL_ALL.filter(function(s){ return included.indexOf(s.key) === -1; });
+  var html = '';
+  tiles.forEach(function(s){
+    html += '<div id="upsell-'+s.key+'" onclick="toggleUpsell(\'' + s.key + '\')" style="border:2px solid #e0e0e0;border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s;background:white;">' +
+      '<div style="font-size:1.6rem;">'+s.icon+'</div>' +
+      '<div style="font-size:0.78rem;font-weight:700;color:#333;margin-top:4px;">'+s.label+'</div>' +
+      '</div>';
+  });
+  document.getElementById('upsellTiles').innerHTML = html;
+  setTimeout(function(){ if(window._fixTouchables) window._fixTouchables(); }, 50);
+  show('upsell');
+}
+
+function toggleUpsell(key){
+  var el = document.getElementById('upsell-'+key);
+  if(upsellSelected[key]){
+    delete upsellSelected[key];
+    el.style.border = '2px solid #e0e0e0';
+    el.style.background = 'white';
+    el.style.color = '#333';
+  } else {
+    upsellSelected[key] = true;
+    el.style.border = '2px solid #7DC242';
+    el.style.background = '#d4f5c4';
+  }
+}
+
+function upsellBack(){
+  wizIdx = wizSteps.length - 1;
+  show('wizard');
+  showWizStep();
+}
+
+// Upsell question queue
+var upsellQueue = [];
+var upsellQIdx = 0;
+
+// Map each upsell key to the question steps it needs
+var UPSELL_STEPS = {
+  driveway:  ['uq-driveway'],
+  patio:     ['uq-patio'],
+  gutters:   ['uq-gutters'],
+  roof:      ['uq-roofpitch'],
+  windows:   ['uq-windows'],
+  deck:      ['uq-deck-type','uq-deck-size'],
+  pool:      ['uq-pool-size'],
+  fence:     [],   // TLC quotes on-site
+  fencerest: [],   // TLC quotes on-site
+  deckrest:  [],   // TLC quotes on-site
+  rust:      [],   // TLC quotes on-site
+  graffiti:  [],   // TLC quotes on-site
+  grave:     [],   // TLC quotes on-site
+  other:     [],   // TLC quotes on-site
+};
+
+function upsellDone(){
+  if(Object.keys(upsellSelected).length === 0){ buildAndShowResult(); return; }
+  // Build question queue from selected add-ons
+  upsellQueue = [];
+  Object.keys(upsellSelected).forEach(function(key){
+    if(key === 'grave') customSvcs.grave = true;
+    if(key === 'other') customSvcs.other = true;
+    if(key === 'graffiti') customSvcs.graffiti = true;
+    var steps = UPSELL_STEPS[key] || [];
+    steps.forEach(function(s){ upsellQueue.push(s); });
+  });
+  if(upsellQueue.length === 0){ buildAndShowResult(); return; }
+  upsellQIdx = 0;
+  showUpsellQ();
+}
+
+function upsellQBack(){
+  if(upsellQIdx > 0){ upsellQIdx--; showUpsellQ(); }
+  else { show('upsell'); }
+}
+
+function showUpsellQ(){
+  var qid = upsellQueue[upsellQIdx];
+  var pct = Math.round(((upsellQIdx+1)/upsellQueue.length)*100);
+  document.getElementById('upsellQProgress').style.width = pct+'%';
+  document.getElementById('upsellQLabel').textContent = 'Add-on question '+(upsellQIdx+1)+' of '+upsellQueue.length;
+  // Replace container to wipe all stale event listeners
+  var old = document.getElementById('upsellQContainer');
+  var c = old.cloneNode(false);
+  old.parentNode.replaceChild(c, old);
+  c.innerHTML = buildUpsellQHTML(qid);
+  window.scrollTo(0,0);
+  show('upsellq');
+}
+
+function upsellQNext(){
+  upsellQIdx++;
+  if(upsellQIdx >= upsellQueue.length){ buildAndShowResult(); }
+  else { showUpsellQ(); }
+}
+
+function buildUpsellQHTML(id){
+  if(id==='uq-driveway') return '<div class="qcard"><h2>🚗 Driveway size?</h2><div class="qsub">Pick closest or enter sq ft</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickDriveway(\'1car\',this)"><span class="sb-icon">🚗</span><div class="sb-title">1-Car</div><div class="sb-desc">~400 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickDriveway(\'2car\',this)"><span class="sb-icon">🚗🚗</span><div class="sb-title">2-Car</div><div class="sb-desc">~640 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickDriveway(\'large\',this)"><span class="sb-icon">🏠</span><div class="sb-title">Large</div><div class="sb-desc">~900+ sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickDriveway(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Sq Ft</div><div class="sb-desc">More accurate</div><div class="sb-price">TLC confirms</div></div></div><div id="uqDrivewaySqftInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Square feet:</label><input type="number" id="uqDrivewayFt" placeholder="e.g. 640" min="100" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmDriveway()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
+
+  if(id==='uq-patio') return '<div class="qcard"><h2>🪴 Patio / Walkway size?</h2><div class="qsub">Pick closest or enter sq ft</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickPatio(\'small\',this)"><span class="sb-icon">🪑</span><div class="sb-title">Small</div><div class="sb-desc">~200 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickPatio(\'medium\',this)"><span class="sb-icon">🪑🪑</span><div class="sb-title">Medium</div><div class="sb-desc">~400 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickPatio(\'large\',this)"><span class="sb-icon">🏡</span><div class="sb-title">Large</div><div class="sb-desc">~700 sq ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickPatio(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Sq Ft</div><div class="sb-price">TLC confirms</div></div></div><div id="uqPatioSqftInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Square feet:</label><input type="number" id="uqPatioFt" placeholder="e.g. 400" min="50" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmPatio()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
+
+  if(id==='uq-gutters') return '<div class="qcard"><h2>🌿 Gutter linear footage?</h2><div class="qsub">Exterior face of gutters</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickGutters(\'small\',this)"><span class="sb-icon">🏠</span><div class="sb-title">Small Home</div><div class="sb-desc">~120 linear ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickGutters(\'medium\',this)"><span class="sb-icon">🏡</span><div class="sb-title">Medium Home</div><div class="sb-desc">~160 linear ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickGutters(\'large\',this)"><span class="sb-icon">🏘️</span><div class="sb-title">Large Home</div><div class="sb-desc">~200+ linear ft</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickGutters(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Footage</div><div class="sb-price">TLC confirms</div></div></div><div id="uqGuttersFtInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Linear feet:</label><input type="number" id="uqGuttersFt" placeholder="e.g. 150" min="20" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmGutters()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
+
+  if(id==='uq-roofpitch') return '<div class="qcard"><h2>🏠 Roof pitch?</h2><div class="qsub">Tap the shape that looks most like your roof</div><div class="note-box">⚠️ Steep or 3-story roofs require on-site confirmation.</div><div class="choice" onclick="uqPickRoof(\'low\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none"><rect x="5" y="32" width="70" height="14" fill="#d4a574" rx="2"/><polygon points="5,32 75,32 75,28 40,18 5,28" fill="#8B6914"/><polygon points="5,28 40,18 75,28" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Gentle Slope (4/12 or less)</div><div class="choice-mod">Base rate</div></div></div><div class="choice" onclick="uqPickRoof(\'medium\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none"><rect x="5" y="36" width="70" height="10" fill="#d4a574" rx="2"/><polygon points="5,36 75,36 75,32 40,8 5,32" fill="#8B6914"/><polygon points="5,32 40,8 75,32" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Moderate Slope (5/12–8/12)</div><div class="choice-mod warn">+15%</div></div></div><div class="choice" onclick="uqPickRoof(\'steep\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none"><rect x="5" y="40" width="70" height="8" fill="#d4a574" rx="2"/><polygon points="5,40 75,40 75,36 40,4 5,36" fill="#8B6914"/><polygon points="5,36 40,4 75,36" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Steep Slope (9/12+)</div><div class="choice-mod danger">+25% — On-site required</div></div></div></div>';
+
+  if(id==='uq-windows') return '<div class="qcard"><h2>🪟 How many windows?</h2><div class="qsub">Exterior cleaning</div><div class="note-box">TLC will confirm final window count pricing on-site.</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickWindows(10,this)"><span class="sb-icon">🪟</span><div class="sb-title">~10 Windows</div><div class="sb-price">Flat rate</div></div><div class="size-btn" onclick="uqPickWindows(20,this)"><span class="sb-icon">🪟🪟</span><div class="sb-title">~20 Windows</div><div class="sb-price">Flat rate</div></div><div class="size-btn" onclick="uqPickWindows(30,this)"><span class="sb-icon">🏠</span><div class="sb-title">~30 Windows</div><div class="sb-price">TLC confirms</div></div><div class="size-btn" onclick="uqPickWindows(0,this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Count</div><div class="sb-price">TLC confirms</div></div></div><div id="uqWindowsInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Number of windows:</label><input type="number" id="uqWindowCount" placeholder="e.g. 20" min="1" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmWindows()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
+
+  if(id==='uq-deck-type') return '<div class="qcard"><h2>🪵 What type of deck?</h2><div class="qsub">Material affects cleaning method and price</div><div class="choice" onclick="uqPickDeckType(\'wood\',this)"><div class="choice-radio"></div><div class="choice-body"><div class="choice-title">Wood / Composite Wood</div><div class="choice-mod">Most common deck material</div></div></div><div class="choice" onclick="uqPickDeckType(\'composite\',this)"><div class="choice-radio"></div><div class="choice-body"><div class="choice-title">Composite / Trex</div><div class="choice-mod">Composite boards</div></div></div><div class="choice" onclick="uqPickDeckType(\'vinyl\',this)"><div class="choice-radio"></div><div class="choice-body"><div class="choice-title">Vinyl / PVC Deck</div><div class="choice-mod">$0.40/sq ft</div></div></div><div class="choice" onclick="uqPickDeckType(\'concrete\',this)"><div class="choice-radio"></div><div class="choice-body"><div class="choice-title">Concrete / Pavers</div><div class="choice-mod">$0.25/sq ft</div></div></div></div>';
+
+  if(id==='uq-deck-size') return '<div class="qcard"><h2>🪵 Deck size?</h2><div class="qsub">Pick closest or enter sq ft</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickDeckSize(200,this)"><span class="sb-icon">🪑</span><div class="sb-title">Small</div><div class="sb-desc">~200 sq ft</div></div><div class="size-btn" onclick="uqPickDeckSize(400,this)"><span class="sb-icon">🪑🪑</span><div class="sb-title">Medium</div><div class="sb-desc">~400 sq ft</div></div><div class="size-btn" onclick="uqPickDeckSize(600,this)"><span class="sb-icon">🏡</span><div class="sb-title">Large</div><div class="sb-desc">~600 sq ft</div></div><div class="size-btn" onclick="uqPickDeckSize(0,this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Sq Ft</div></div></div><div id="uqDeckSqftInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Square feet:</label><input type="number" id="uqDeckFt" placeholder="e.g. 400" min="50" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmDeckSize()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
+
+  if(id==='uq-pool-size') return '<div class="qcard"><h2>🏊 Pool deck size?</h2><div class="qsub">Concrete or pavers around the pool</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="uqPickPool(300,this)"><span class="sb-icon">🏊</span><div class="sb-title">Small</div><div class="sb-desc">~300 sq ft</div></div><div class="size-btn" onclick="uqPickPool(500,this)"><span class="sb-icon">🏊🏊</span><div class="sb-title">Medium</div><div class="sb-desc">~500 sq ft</div></div><div class="size-btn" onclick="uqPickPool(800,this)"><span class="sb-icon">🏡</span><div class="sb-title">Large</div><div class="sb-desc">~800 sq ft</div></div><div class="size-btn" onclick="uqPickPool(0,this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Sq Ft</div></div></div><div id="uqPoolSqftInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Square feet:</label><input type="number" id="uqPoolFt" placeholder="e.g. 500" min="50" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="uqConfirmPool()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
+
+  return '';
+}
+
+// Upsell question pickers
+function uqPickDriveway(size,el){
+  document.querySelectorAll('#upsellQContainer .size-btn').forEach(function(b){b.classList.remove('selected');});
+  el.classList.add('selected');
+  var m={'1car':400,'2car':640,'large':900};
+  if(size==='sqft'){ document.getElementById('uqDrivewaySqftInput').style.display='block'; return; }
+  est.drivewaySqft=m[size]; est.drivewaySqftLabel=size==='1car'?'1-Car (~400 sq ft)':size==='2car'?'2-Car (~640 sq ft)':'Large (~900 sq ft)';
+  setTimeout(upsellQNext,260);
+}
+function uqConfirmDriveway(){
+  var v=parseInt(document.getElementById('uqDrivewayFt').value);
+  if(!v||v<50){alert('Please enter a valid size.');return;}
+  est.drivewaySqft=v; est.drivewaySqftLabel=v+' sq ft'; upsellQNext();
+}
+function uqPickPatio(size,el){
+  document.querySelectorAll('#upsellQContainer .size-btn').forEach(function(b){b.classList.remove('selected');});
+  el.classList.add('selected');
+  var m={small:200,medium:400,large:700};
+  if(size==='sqft'){ document.getElementById('uqPatioSqftInput').style.display='block'; return; }
+  est.patioSqft=m[size]; est.patioSqftLabel=size==='small'?'Small (~200 sq ft)':size==='medium'?'Medium (~400 sq ft)':'Large (~700 sq ft)';
+  setTimeout(upsellQNext,260);
+}
+function uqConfirmPatio(){
+  var v=parseInt(document.getElementById('uqPatioFt').value);
+  if(!v||v<20){alert('Please enter a valid size.');return;}
+  est.patioSqft=v; est.patioSqftLabel=v+' sq ft'; upsellQNext();
+}
+function uqPickGutters(size,el){
+  document.querySelectorAll('#upsellQContainer .size-btn').forEach(function(b){b.classList.remove('selected');});
+  el.classList.add('selected');
+  var m={small:120,medium:160,large:200};
+  if(size==='sqft'){ document.getElementById('uqGuttersFtInput').style.display='block'; return; }
+  est.guttersFt=m[size]; est.guttersFtLabel=size==='small'?'~120 ft':size==='medium'?'~160 ft':'~200 ft';
+  setTimeout(upsellQNext,260);
+}
+function uqConfirmGutters(){
+  var v=parseInt(document.getElementById('uqGuttersFt').value);
+  if(!v||v<10){alert('Please enter a valid length.');return;}
+  est.guttersFt=v; est.guttersFtLabel=v+' linear ft'; upsellQNext();
+}
+function uqPickRoof(pitch,el){
+  document.querySelectorAll('#upsellQContainer .choice').forEach(function(c){c.classList.remove('selected');});
+  el.classList.add('selected');
+  est.roofpitch=pitch;
+  setTimeout(upsellQNext,260);
+}
+function uqPickWindows(count,el){
+  document.querySelectorAll('#upsellQContainer .size-btn').forEach(function(b){b.classList.remove('selected');});
+  el.classList.add('selected');
+  if(count===0){ document.getElementById('uqWindowsInput').style.display='block'; return; }
+  est.windowCount=count; upsellSelected.windows=true;
+  setTimeout(upsellQNext,260);
+}
+function uqConfirmWindows(){
+  var v=parseInt(document.getElementById('uqWindowCount').value);
+  if(!v||v<1){alert('Please enter a valid count.');return;}
+  est.windowCount=v; upsellSelected.windows=true; upsellQNext();
+}
+function uqPickDeckType(type,el){
+  document.querySelectorAll('#upsellQContainer .choice').forEach(function(c){c.classList.remove('selected');});
+  el.classList.add('selected');
+  est.deckType=type;
+  setTimeout(upsellQNext,260);
+}
+function uqPickDeckSize(sqft,el){
+  document.querySelectorAll('#upsellQContainer .size-btn').forEach(function(b){b.classList.remove('selected');});
+  el.classList.add('selected');
+  if(sqft===0){ document.getElementById('uqDeckSqftInput').style.display='block'; return; }
+  est.deckSqft=sqft; est.deckLabel=sqft+' sq ft';
+  setTimeout(upsellQNext,260);
+}
+function uqConfirmDeckSize(){
+  var v=parseInt(document.getElementById('uqDeckFt').value);
+  if(!v||v<20){alert('Please enter a valid size.');return;}
+  est.deckSqft=v; est.deckLabel=v+' sq ft'; upsellQNext();
+}
+function uqPickPool(sqft,el){
+  document.querySelectorAll('#upsellQContainer .size-btn').forEach(function(b){b.classList.remove('selected');});
+  el.classList.add('selected');
+  if(sqft===0){ document.getElementById('uqPoolSqftInput').style.display='block'; return; }
+  est.poolSqft=sqft; est.poolLabel=sqft+' sq ft';
+  setTimeout(upsellQNext,260);
+}
+function uqConfirmPool(){
+  var v=parseInt(document.getElementById('uqPoolFt').value);
+  if(!v||v<20){alert('Please enter a valid size.');return;}
+  est.poolSqft=v; est.poolLabel=v+' sq ft'; upsellQNext();
+}
+
 // ── RATES ──
 var RATE = {
   houseSmall: 0.18, houseLarge: 0.18,
@@ -664,44 +1024,51 @@ var wizIdx = 0;
 function show(id){ document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');}); document.getElementById('screen-'+id).classList.add('active'); window.scrollTo(0,0); }
 
 // ── PACKAGE WIZARD ──
-// Universal mobile touch fix for iOS and Android
-// iOS Safari ignores onclick on divs - this bridges all interactive divs
+// Scroll-aware touch system — single delegated listener, no eval, no Function()
 (function(){
-  function fixTouchable(selector){
-    document.querySelectorAll(selector).forEach(function(el){
-      el.setAttribute('role','button');
-      el.setAttribute('tabindex','0');
-      var fn = el.getAttribute('onclick');
-      if(fn){
-        el.removeAttribute('onclick');
-        var handler = function(e){
-          e.preventDefault();
-          e.stopPropagation();
-          try { eval(fn); } catch(err){}
-        };
-        el.addEventListener('click', handler);
-        el.addEventListener('touchend', handler);
+  var touchStartY = 0;
+  var touchStartX = 0;
+  window.didScroll = false;
+  var SCROLL_THRESHOLD = 8;
+
+  document.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    window.didScroll = false;
+  }, {passive:true});
+
+  document.addEventListener('touchmove', function(e){
+    var dy = Math.abs(e.touches[0].clientY - touchStartY);
+    var dx = Math.abs(e.touches[0].clientX - touchStartX);
+    if(dy > SCROLL_THRESHOLD || dx > SCROLL_THRESHOLD) window.didScroll = true;
+  }, {passive:true});
+
+  // Single delegated touchend — only fires for elements WITHOUT a click handler already
+  document.addEventListener('touchend', function(e){
+    if(window.didScroll) return;
+    var el = e.target;
+    for(var i=0; i<6; i++){
+      if(!el || el === document.body) break;
+      var tag = el.tagName;
+      if(tag === 'BUTTON' || tag === 'A' || tag === 'INPUT' || tag === 'SELECT') return;
+      // data-val elements handle their own clicks via renderCustomQ - skip them
+      if(el.hasAttribute('data-val')) return;
+      if(el.classList.contains('pkg-card') ||
+         el.classList.contains('choice') ||
+         el.classList.contains('size-btn') ||
+         el.classList.contains('csvc-tile') ||
+         el.classList.contains('back-link') ||
+         el.classList.contains('siding-multi')){
+        e.preventDefault();
+        el.click();
+        return;
       }
-    });
-  }
-  function init(){
-    fixTouchable('.pkg-card:not(.pkg-card-fixed)');
-    fixTouchable('.choice');
-    fixTouchable('.size-btn');
-    fixTouchable('.csvc-tile');
-    fixTouchable('[onclick]');
-    // Mark pkg-cards as fixed
-    document.querySelectorAll('.pkg-card').forEach(function(el){
-      el.classList.add('pkg-card-fixed');
-    });
-  }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-  // Re-run after dynamic content loads (wizard steps)
-  window._fixTouchables = function(){ fixTouchable('[onclick]'); };
+      el = el.parentElement;
+    }
+  });
+
+  // No-op — kept for compatibility with existing calls
+  window._fixTouchables = function(){};
 })();
 
 function startPkg(pkg){
@@ -714,6 +1081,7 @@ function startPkg(pkg){
 }
 
 function showWizStep(){
+  if(wizIdx >= wizSteps.length){ showUpsell(); return; }
   document.querySelectorAll('.qcard').forEach(function(q){ q.style.display='none'; });
   var stepId = wizSteps[wizIdx];
   var el = document.getElementById('wq-'+stepId);
@@ -734,13 +1102,13 @@ function wizBack(){
 function wizPick(field, val, el){
   est[field] = val;
   var card = document.getElementById('wq-'+field);
-  card.querySelectorAll('.choice').forEach(function(c){ c.classList.remove('selected'); });
+  if(card) card.querySelectorAll('.choice').forEach(function(c){ c.classList.remove('selected'); });
   el.classList.add('selected');
   setTimeout(function(){
     wizIdx++;
-    if(wizIdx >= wizSteps.length){ buildAndShowResult(); }
+    if(wizIdx >= wizSteps.length){ showUpsell(); }
     else { showWizStep(); }
-  }, 260);
+  }, 300);
 }
 
 // Driveway picker
@@ -754,7 +1122,7 @@ function pickDriveway(size, el){
     document.getElementById('drivewaySqftInput').style.display='none';
     est.drivewaySqft = sqftMap[size];
     est.drivewaySqftLabel = size==='1car'?'1-Car (~400 sq ft)':size==='2car'?'2-Car (~640 sq ft)':'Large (~900 sq ft)';
-    setTimeout(function(){ wizIdx++; if(wizIdx>=wizSteps.length){buildAndShowResult();}else{showWizStep();} }, 260);
+    setTimeout(function(){ wizIdx++; if(wizIdx>=wizSteps.length){showUpsell();}else{showWizStep();} }, 260);
   }
 }
 function confirmDrivewaySqft(){
@@ -762,7 +1130,7 @@ function confirmDrivewaySqft(){
   if(!v||v<50){ alert('Please enter a valid square footage.'); return; }
   est.drivewaySqft = v;
   est.drivewaySqftLabel = v+' sq ft (entered)';
-  wizIdx++; if(wizIdx>=wizSteps.length){buildAndShowResult();}else{showWizStep();}
+  wizIdx++; if(wizIdx>=wizSteps.length){showUpsell();}else{showWizStep();}
 }
 
 // Patio picker
@@ -776,7 +1144,7 @@ function pickPatio(size, el){
     document.getElementById('patioSqftInput').style.display='none';
     est.patioSqft = sqftMap[size];
     est.patioSqftLabel = size==='small'?'Small (~200 sq ft)':size==='medium'?'Medium (~400 sq ft)':'Large (~700 sq ft)';
-    setTimeout(function(){ wizIdx++; if(wizIdx>=wizSteps.length){buildAndShowResult();}else{showWizStep();} }, 260);
+    setTimeout(function(){ wizIdx++; if(wizIdx>=wizSteps.length){showUpsell();}else{showWizStep();} }, 260);
   }
 }
 function confirmPatioSqft(){
@@ -784,7 +1152,7 @@ function confirmPatioSqft(){
   if(!v||v<20){ alert('Please enter a valid square footage.'); return; }
   est.patioSqft = v;
   est.patioSqftLabel = v+' sq ft (entered)';
-  wizIdx++; if(wizIdx>=wizSteps.length){buildAndShowResult();}else{showWizStep();}
+  wizIdx++; if(wizIdx>=wizSteps.length){showUpsell();}else{showWizStep();}
 }
 
 // Gutters picker
@@ -798,7 +1166,7 @@ function pickGutters(size, el){
     document.getElementById('guttersFtInput').style.display='none';
     est.guttersFt = ftMap[size];
     est.guttersFtLabel = size==='small'?'Small (~120 ft)':size==='medium'?'Medium (~160 ft)':'Large (~200 ft)';
-    setTimeout(function(){ wizIdx++; if(wizIdx>=wizSteps.length){buildAndShowResult();}else{showWizStep();} }, 260);
+    setTimeout(function(){ wizIdx++; if(wizIdx>=wizSteps.length){showUpsell();}else{showWizStep();} }, 260);
   }
 }
 function confirmGuttersFt(){
@@ -806,7 +1174,7 @@ function confirmGuttersFt(){
   if(!v||v<10){ alert('Please enter a valid linear footage.'); return; }
   est.guttersFt = v;
   est.guttersFtLabel = v+' linear ft (entered)';
-  wizIdx++; if(wizIdx>=wizSteps.length){buildAndShowResult();}else{showWizStep();}
+  wizIdx++; if(wizIdx>=wizSteps.length){showUpsell();}else{showWizStep();}
 }
 
 // ── CUSTOM WIZARD ──
@@ -824,6 +1192,17 @@ var customQData = {};
 
 function startCustomWizard(){
   if(Object.keys(customSvcs).length===0){ alert('Please select at least one service.'); return; }
+  if(customSvcs.other){
+    var desc = document.getElementById('otherDesc');
+    if(!desc || !desc.value.trim()){
+      desc.focus();
+      desc.style.border = '2.5px solid #c0392b';
+      desc.style.boxShadow = '0 0 0 4px rgba(192,57,43,0.25)';
+      desc.placeholder = '⚠️ Please describe what you need before continuing...';
+      alert('Please describe what you need in the box above.');
+      return;
+    }
+  }
   customQSteps = [];
   customQData = {};
   est = { mode:'custom' };
@@ -841,12 +1220,19 @@ function startCustomWizard(){
   if(customSvcs.patio)    customQSteps.push({id:'patio',    label:'Patio Size'});
   if(customSvcs.gutters)  customQSteps.push({id:'gutters',  label:'Gutter Footage'});
   if(customSvcs.roof)     customQSteps.push({id:'roofpitch',label:'Roof Pitch'});
-  if(customSvcs.deck)     customQSteps.push({id:'decktype', label:'Deck Type'});
-  if(customSvcs.deck)     customQSteps.push({id:'decksize', label:'Deck Size'});
+  if(customSvcs.deckrest) customQSteps.push({id:'deckresttype', label:'Deck Service Type'});
+  if(customSvcs.deckrest) customQSteps.push({id:'deckrestsize', label:'Deck Size'});
   if(customSvcs.pool)     customQSteps.push({id:'poolsize', label:'Pool Deck Size'});
+  if(customSvcs.fencerest) customQSteps.push({id:'fenceresttype', label:'Fence Service Type'});
+  if(customSvcs.fencerest) customQSteps.push({id:'fencerestsize', label:'Fence Length'});
   if(customSvcs.windows)  customQSteps.push({id:'windows',  label:'Window Count'});
 
   customQIdx = 0;
+  // Services like gravestone/graffiti/other need no questions - go straight to result
+  if(customQSteps.length === 0){
+    buildCustomResult();
+    return;
+  }
   renderCustomQ();
   show('customq');
 }
@@ -856,9 +1242,50 @@ function renderCustomQ(){
   var pct = Math.round(((customQIdx+1)/customQSteps.length)*100);
   document.getElementById('customProgress').style.width = pct+'%';
   document.getElementById('customStepLabel').textContent = 'Step '+(customQIdx+1)+' of '+customQSteps.length;
-  var c = document.getElementById('customQContainer');
+  // Replace container with fresh element to wipe all stale event listeners
+  var old = document.getElementById('customQContainer');
+  var c = old.cloneNode(false);
+  old.parentNode.replaceChild(c, old);
   c.innerHTML = buildCustomQHTML(step.id);
   window.scrollTo(0,0);
+  // Wire choice tiles fresh — no stacking
+  c.querySelectorAll('.cq-choice, .cq-roof-choice').forEach(function(tile){
+    var val = tile.getAttribute('data-val');
+    tile.addEventListener('touchend', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(!window.didScroll){
+        if(val === 'enter'){
+          var winp = document.getElementById('cqWindowInput');
+          var dinp = document.getElementById('cqDeckInput');
+          var pinp = document.getElementById('cqPoolInput');
+          var drip = document.getElementById('cqDeckRestInput');
+          var fnip = document.getElementById('cqFenceInput');
+          var frip = document.getElementById('cqFenceRestInput');
+          var inp = winp || dinp || pinp || drip || fnip || frip;
+          if(inp){ inp.style.display='block'; tile.style.border='2px solid #3AABCD'; }
+        } else {
+          cqPick(val, tile);
+        }
+      }
+    });
+    tile.addEventListener('click', function(e){
+      if(!window.didScroll){
+        if(val === 'enter'){
+          var winp = document.getElementById('cqWindowInput');
+          var dinp = document.getElementById('cqDeckInput');
+          var pinp = document.getElementById('cqPoolInput');
+          var drip = document.getElementById('cqDeckRestInput');
+          var fnip = document.getElementById('cqFenceInput');
+          var frip = document.getElementById('cqFenceRestInput');
+          var inp = winp || dinp || pinp || drip || fnip || frip;
+          if(inp){ inp.style.display='block'; tile.style.border='2px solid #3AABCD'; }
+        } else {
+          cqPick(val, tile);
+        }
+      }
+    });
+  });
 }
 
 function buildCustomQHTML(id){
@@ -894,21 +1321,181 @@ function buildCustomQHTML(id){
 
   if(id==='gutters') return '<div class="qcard"><h2>🌿 Gutter linear footage?</h2><div class="qsub">Gutter brightening — exterior face of gutters</div><div class="note-box">💡 Most homes: 1-story ~100–150 ft, 2-story ~150–200 ft. TLC confirms exact length on-site.</div><div class="size-grid" style="margin-bottom:12px;"><div class="size-btn" onclick="pickGutters(\'small\',this)"><span class="sb-icon">🏠</span><div class="sb-title">Small Home</div><div class="sb-desc">~120 linear ft</div><div class="sb-price">~0</div></div><div class="size-btn" onclick="pickGutters(\'medium\',this)"><span class="sb-icon">🏡</span><div class="sb-title">Medium Home</div><div class="sb-desc">~160 linear ft</div><div class="sb-price">~20</div></div><div class="size-btn" onclick="pickGutters(\'large\',this)"><span class="sb-icon">🏘️</span><div class="sb-title">Large Home</div><div class="sb-desc">~200+ linear ft</div><div class="sb-price">~50+</div></div><div class="size-btn" onclick="pickGutters(\'sqft\',this)"><span class="sb-icon">📐</span><div class="sb-title">Enter Footage</div><div class="sb-desc">More accurate</div><div class="sb-price">TLC confirms</div></div></div><div id="guttersFtInput" style="display:none;"><label style="font-size:0.85rem;font-weight:700;color:#333;display:block;margin-bottom:6px;">Linear feet of gutters:</label><input type="number" id="guttersFt" placeholder="e.g. 150" min="20" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;"><button onclick="confirmGuttersFt()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button></div></div>';
 
-  if(id==='roofpitch') return '<div class="qcard"><h2>🏠 What\'s your roof pitch?</h2><div class="qsub">Tap the shape that looks most like your roof</div><div class="note-box">⚠️ Steep or multi-story roofs always require on-site confirmation. This is an estimate only.</div><div class="choice" onclick="cqPick(\'low\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="32" width="70" height="14" fill="#d4a574" rx="2"/><polygon points="5,32 75,32 75,28 40,18 5,28" fill="#8B6914"/><polygon points="5,28 40,18 75,28" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Gentle Slope (4/12 or less)</div><div class="choice-desc">Looks nearly flat from the ground</div><div class="choice-mod">Base rate — /bin/sh.40/sq ft</div></div></div><div class="choice" onclick="cqPick(\'medium\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="36" width="70" height="10" fill="#d4a574" rx="2"/><polygon points="5,36 75,36 75,32 40,8 5,32" fill="#8B6914"/><polygon points="5,32 40,8 75,32" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Moderate Slope (5/12–8/12)</div><div class="choice-desc">Typical triangle shape</div><div class="choice-mod warn">+15% — TLC confirms</div></div></div><div class="choice" onclick="cqPick(\'steep\',this)"><svg class="roof-svg" viewBox="0 0 80 50" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="40" width="70" height="8" fill="#d4a574" rx="2"/><polygon points="5,40 75,40 75,36 40,4 5,36" fill="#8B6914"/><polygon points="5,36 40,4 75,36" fill="#a07820"/></svg><div class="choice-body"><div class="choice-title">Steep Slope (9/12 or higher)</div><div class="choice-desc">Very sharp angle • Tall-looking roof</div><div class="choice-mod danger">+25% — On-site confirmation required</div></div></div></div>';
+  if(id==='roofpitch'){
+    return '<div class="qcard"><h2>&#127968; Roof pitch?</h2>' +
+      '<div class="qsub">Tap the shape most like your roof</div>' +
+      '<div class="note-box">Steep or 3-story roofs require on-site confirmation.</div>' +
+      '<div class="choice cq-roof-choice" data-val="low"><div class="choice-body"><div class="choice-title">Gentle Slope (4/12 or less)</div><div class="choice-desc">Looks nearly flat from the ground</div><div class="choice-mod">Standard rate</div></div></div>' +
+      '<div class="choice cq-roof-choice" data-val="medium"><div class="choice-body"><div class="choice-title">Moderate Slope (5/12&ndash;8/12)</div><div class="choice-desc">Typical triangle shape</div><div class="choice-mod warn">+15%</div></div></div>' +
+      '<div class="choice cq-roof-choice" data-val="steep"><div class="choice-body"><div class="choice-title">Steep Slope (9/12+)</div><div class="choice-desc">Very sharp angle</div><div class="choice-mod danger">+25% &mdash; On-site required</div></div></div>' +
+      '</div>';
+  }
+  if(id==='decktype'){
+    return '<div class="qcard"><h2>🪵 Deck material?</h2>' +
+      '<div class="qsub">Affects cleaning method and rate</div>' +
+      choiceHTML('wood',    'Wood Deck',      'Cedar, pine, treated lumber', '', 'cq') +
+      choiceHTML('composite','Composite Deck','Trex, TimberTech, etc.',      '', 'cq') +
+      choiceHTML('vinyl',   'Vinyl / PVC',    'Low-maintenance synthetic',   '', 'cq') +
+      choiceHTML('concrete','Concrete Patio', 'Stamped or plain concrete',   '', 'cq') +
+      '</div>';
+  }
 
-  if(id==='decktype') return '<div class="qcard"><h2>🪵 Deck material?</h2>'+
-    choiceHTML('wood','Wood Deck','$0.625/sq ft','','cq')+
-    choiceHTML('composite','Composite / Trex','$0.425/sq ft','','cq')+'</div>';
+  if(id==='decksize'){
+    return '<div class="qcard"><h2>🪵 Deck size?</h2>' +
+      '<div class="qsub">Approximate square footage</div>' +
+      '<div class="size-grid" style="margin-bottom:12px;">' +
+      '<div class="size-btn cq-choice" data-val="200"><span class="sb-icon">🪵</span><div class="sb-title">Small</div><div class="sb-desc">~200 sq ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="400"><span class="sb-icon">🪵🪵</span><div class="sb-title">Medium</div><div class="sb-desc">~400 sq ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="700"><span class="sb-icon">🏠</span><div class="sb-title">Large</div><div class="sb-desc">~700 sq ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="enter"><span class="sb-icon">📐</span><div class="sb-title">Enter Size</div><div class="sb-desc">Most accurate</div></div>' +
+      '</div>' +
+      '<div id="cqDeckInput" style="display:none;">' +
+      '<label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Square footage:</label>' +
+      '<input type="number" id="cqDeckSqft" placeholder="e.g. 350" min="1" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;box-sizing:border-box;">' +
+      '<button onclick="cqConfirmDeck()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button>' +
+      '</div></div>';
+  }
 
-  if(id==='decksize') return buildSizeQHTML('Deck size?','deckSqft','deck sq ft','e.g. 400');
-  if(id==='poolsize') return buildSizeQHTML('Pool deck size?','poolSqft','pool deck sq ft','e.g. 600');
-  if(id==='windows')  return buildWindowQHTML();
+  if(id==='poolsize'){
+    return '<div class="qcard"><h2>🏊 Pool deck size?</h2>' +
+      '<div class="qsub">Concrete or pavers around the pool</div>' +
+      '<div class="size-grid" style="margin-bottom:12px;">' +
+      '<div class="size-btn cq-choice" data-val="300"><span class="sb-icon">🏊</span><div class="sb-title">Small</div><div class="sb-desc">~300 sq ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="500"><span class="sb-icon">🏊🏊</span><div class="sb-title">Medium</div><div class="sb-desc">~500 sq ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="800"><span class="sb-icon">🏡</span><div class="sb-title">Large</div><div class="sb-desc">~800 sq ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="enter"><span class="sb-icon">📐</span><div class="sb-title">Enter Size</div><div class="sb-desc">Most accurate</div></div>' +
+      '</div>' +
+      '<div id="cqPoolInput" style="display:none;">' +
+      '<label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Square footage:</label>' +
+      '<input type="number" id="cqPoolSqft" placeholder="e.g. 500" min="1" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;box-sizing:border-box;">' +
+      '<button onclick="cqConfirmPool()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button>' +
+      '</div></div>';
+  }
+
+    if(id==='deckresttype'){
+    return '<div class="qcard"><h2>🪵 What deck service do you need?</h2>' +
+      '<div class="qsub">Tell us what the deck needs</div>' +
+      choiceHTML('clean',   'Cleaning Only',       'Pressure wash and rinse',             '', 'cq') +
+      choiceHTML('stain',   'Clean + Stain/Seal',  'Wash, prep and apply stain or sealer','', 'cq') +
+      choiceHTML('restore', 'Full Restoration',    'Cleaning, staining and minor repairs','', 'cq') +
+      '</div>';
+  }
+  if(id==='deckrestsize'){
+    return '<div class="qcard"><h2>🔨 Deck size?</h2><div class="qsub">Approximate square footage</div>' +
+      '<div class="size-grid">' +
+      '<div class="size-btn cq-choice" data-val="200"><span class="sb-icon">🪵</span><div class="sb-title">Small</div><div class="sb-desc">~200 sq ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="400"><span class="sb-icon">🪵🪵</span><div class="sb-title">Medium</div><div class="sb-desc">~400 sq ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="700"><span class="sb-icon">🏠</span><div class="sb-title">Large</div><div class="sb-desc">~700 sq ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="enter"><span class="sb-icon">📐</span><div class="sb-title">Enter Size</div><div class="sb-desc">Most accurate</div></div>' +
+      '</div><div id="cqDeckRestInput" style="display:none;">' +
+      '<label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Square footage:</label>' +
+      '<input type="number" id="cqDeckRestSqft" placeholder="e.g. 300" min="1" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;box-sizing:border-box;">' +
+      '<button onclick="cqConfirmDeckRest()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button>' +
+      '</div></div>';
+  }
+  if(id==='fencetype'){
+    return '<div class="qcard"><h2>🪵 Fence material?</h2><div class="qsub">Affects cleaning method and rate</div>' +
+      choiceHTML('vinyl', 'Vinyl / PVC',  'White or colored vinyl panels', '', 'cq') +
+      choiceHTML('wood',  'Wood',         'Pine, cedar, treated lumber',   '', 'cq') +
+      choiceHTML('chain', 'Chain Link',   'Metal chain link fencing',      '', 'cq') +
+      choiceHTML('metal', 'Metal / Iron', 'Ornamental or wrought iron',    '', 'cq') +
+      '</div>';
+  }
+  if(id==='fencesize'){
+    return '<div class="qcard"><h2>🪵 Fence length?</h2><div class="qsub">Approximate linear feet</div>' +
+      '<div class="size-grid">' +
+      '<div class="size-btn cq-choice" data-val="100"><span class="sb-icon">🪵</span><div class="sb-title">Small</div><div class="sb-desc">~100 lin ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="200"><span class="sb-icon">🪵🪵</span><div class="sb-title">Medium</div><div class="sb-desc">~200 lin ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="350"><span class="sb-icon">🏠</span><div class="sb-title">Large</div><div class="sb-desc">~350 lin ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="enter"><span class="sb-icon">📐</span><div class="sb-title">Enter Length</div><div class="sb-desc">Most accurate</div></div>' +
+      '</div><div id="cqFenceInput" style="display:none;">' +
+      '<label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Linear feet:</label>' +
+      '<input type="number" id="cqFenceFt" placeholder="e.g. 150" min="1" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;box-sizing:border-box;">' +
+      '<button onclick="cqConfirmFence()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button>' +
+      '</div></div>';
+  }
+  if(id==='fenceresttype'){
+    return '<div class="qcard"><h2>🔧 What fence service do you need?</h2><div class="qsub">Tell us what the fence needs</div>' +
+      choiceHTML('clean',   'Cleaning Only',           'Pressure wash and rinse',              '', 'cq') +
+      choiceHTML('stain',   'Clean + Stain/Seal',      'Wash, prep and apply stain or sealer', '', 'cq') +
+      choiceHTML('restore', 'Full Restoration',        'Cleaning, staining and board repairs',  '', 'cq') +
+      '</div>';
+  }
+  if(id==='fencerestsize'){
+    return '<div class="qcard"><h2>🔧 Fence length?</h2><div class="qsub">Approximate linear feet</div>' +
+      '<div class="size-grid">' +
+      '<div class="size-btn cq-choice" data-val="100"><span class="sb-icon">🔧</span><div class="sb-title">Small</div><div class="sb-desc">~100 lin ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="200"><span class="sb-icon">🔧🔧</span><div class="sb-title">Medium</div><div class="sb-desc">~200 lin ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="350"><span class="sb-icon">🏠</span><div class="sb-title">Large</div><div class="sb-desc">~350 lin ft</div></div>' +
+      '<div class="size-btn cq-choice" data-val="enter"><span class="sb-icon">📐</span><div class="sb-title">Enter Length</div><div class="sb-desc">Most accurate</div></div>' +
+      '</div><div id="cqFenceRestInput" style="display:none;">' +
+      '<label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Linear feet:</label>' +
+      '<input type="number" id="cqFenceRestFt" placeholder="e.g. 150" min="1" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;box-sizing:border-box;">' +
+      '<button onclick="cqConfirmFenceRest()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button>' +
+      '</div></div>';
+  }
+    if(id==='windows'){
+    return '<div class="qcard"><h2>🪟 How many windows?</h2>' +
+      '<div class="qsub">Exterior window cleaning</div>' +
+      '<div class="note-box">$175 for up to 20 windows, then +$25 per 5 additional. 2nd story windows and larger/oversized windows may cost more — TLC will confirm on-site.</div>' +
+      '<div class="size-grid" style="margin-bottom:12px;">' +
+      '<div class="size-btn cq-choice" data-val="20"><span class="sb-icon">🪟</span><div class="sb-title">Up to 20</div><div class="sb-desc">Minimum</div><div class="sb-price">$175 flat</div></div>' +
+      '<div class="size-btn cq-choice" data-val="25"><span class="sb-icon">🪟🪟</span><div class="sb-title">~25 Windows</div><div class="sb-desc">+5 over minimum</div><div class="sb-price">$200</div></div>' +
+      '<div class="size-btn cq-choice" data-val="30"><span class="sb-icon">🏠</span><div class="sb-title">~30 Windows</div><div class="sb-desc">+10 over minimum</div><div class="sb-price">$225</div></div>' +
+      '<div class="size-btn cq-choice" data-val="enter"><span class="sb-icon">📐</span><div class="sb-title">Enter Count</div><div class="sb-desc">Most accurate</div><div class="sb-price">TLC confirms</div></div>' +
+      '</div>' +
+      '<div id="cqWindowInput" style="display:none;">' +
+      '<label style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:6px;">Number of windows:</label>' +
+      '<input type="number" id="cqWindowCount" placeholder="e.g. 20" min="1" style="width:100%;padding:12px;border:2px solid #3AABCD;border-radius:10px;font-size:1rem;box-sizing:border-box;">' +
+      '<button onclick="cqConfirmWindows()" style="margin-top:10px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:25px;padding:12px;width:100%;font-size:0.95rem;font-weight:700;cursor:pointer;">Confirm →</button>' +
+      '</div></div>';
+  }
+
   return '';
+}
+
+function cqConfirmDeckRest(){
+  var v = parseInt(document.getElementById('cqDeckRestSqft').value);
+  if(!v||v<1){ alert('Please enter a valid square footage.'); return; }
+  customQData['deckrestsize'] = String(v);
+  cqNext();
+}
+function cqConfirmFence(){
+  var v = parseInt(document.getElementById('cqFenceFt').value);
+  if(!v||v<1){ alert('Please enter a valid length.'); return; }
+  customQData['fencesize'] = String(v);
+  cqNext();
+}
+function cqConfirmFenceRest(){
+  var v = parseInt(document.getElementById('cqFenceRestFt').value);
+  if(!v||v<1){ alert('Please enter a valid length.'); return; }
+  customQData['fencerestsize'] = String(v);
+  cqNext();
+}
+function cqConfirmDeck(){
+  var v = parseInt(document.getElementById('cqDeckSqft').value);
+  if(!v||v<1){ alert('Please enter a valid square footage.'); return; }
+  customQData['decksize'] = String(v);
+  cqNext();
+}
+
+function cqConfirmPool(){
+  var v = parseInt(document.getElementById('cqPoolSqft').value);
+  if(!v||v<1){ alert('Please enter a valid square footage.'); return; }
+  customQData['poolsize'] = String(v);
+  cqNext();
+}
+
+function cqConfirmWindows(){
+  var v = parseInt(document.getElementById('cqWindowCount').value);
+  if(!v||v<1){ alert('Please enter a valid window count.'); return; }
+  customQData['windows'] = String(v);
+  cqNext();
 }
 
 function choiceHTML(val,title,desc,mod,cls){
   var modClass = (cls||'').indexOf('warn')>=0?'warn':(cls||'').indexOf('danger')>=0?'danger':'';
-  return '<div class="choice" onclick="cqPick(\''+val+'\',this)">'+
+  return '<div class="choice cq-choice" data-val="'+val+'">'+
     '<div class="choice-radio"></div>'+
     '<div class="choice-body">'+
       '<div class="choice-title">'+title+'</div>'+
@@ -936,10 +1523,12 @@ function buildWindowQHTML(){
 
 function cqPick(val, el){
   var step = customQSteps[customQIdx];
+  if(!step) return;
   customQData[step.id] = val;
-  el.closest('.qcard').querySelectorAll('.choice').forEach(function(c){ c.classList.remove('selected'); });
+  var card = el.closest ? el.closest('.qcard') : null;
+  if(card) card.querySelectorAll('.choice').forEach(function(c){ c.classList.remove('selected'); });
   el.classList.add('selected');
-  setTimeout(function(){ cqNext(); }, 260);
+  setTimeout(function(){ cqNext(); }, 300);
 }
 
 function cqPickSqft(field){
@@ -961,11 +1550,24 @@ function cqNext(){
 function calcHousePrice(homesize, siding, stories, condition, access){
   var sqft = HOUSE_SQFT[homesize] || 1200;
   var price = sqft * RATE.houseSmall;
-  price *= SIDING_MULT[siding] || 1;
+  // Use blended multiplier if multi-siding selected, otherwise lookup
+  var sidingMult = est.sidingMult || SIDING_MULT[siding] || 1;
+  price *= sidingMult;
   price *= STORY_MULT[stories] || 1;
   price *= COND_MULT[condition] || 1;
   price *= ACCESS_MULT[access] || 1;
   return price;
+}
+
+function injectResultNotes(opts){
+  var ns = 'background:#1a6fa8;border:1.5px solid rgba(255,255,255,0.6);border-radius:10px;padding:10px 13px;margin-top:10px;font-size:0.8rem;color:#fff;line-height:1.6;text-align:left;';
+  var notes = '';
+  if(opts.minimum)  notes += '<div style="'+ns+'">📍 <strong>Minimum charge:</strong> House wash $250 min, other services $200 min. Distance surcharge may apply.</div>';
+  if(opts.windows)  notes += '<div style="'+ns+'">🪟 <strong>Windows:</strong> 2nd story &amp; oversized windows may be priced higher. TLC confirms on-site.</div>';
+  if(opts.roof)     notes += '<div style="'+ns+'">🏠 <strong>Roof:</strong> Steep or 3-story roofs require on-site confirmation before work begins.</div>';
+  if(opts.deck)     notes += '<div style="'+ns+'">🪵 <strong>Deck:</strong> Final price depends on condition, staining, and mildew level. TLC confirms on-site.</div>';
+  if(opts.tbd)      notes += '<div style="'+ns+'">⚠️ <strong>On-site confirmation needed</strong> for one or more services. TLC will confirm all pricing before work begins.</div>';
+  document.getElementById('resultNotes').innerHTML = notes;
 }
 
 function buildAndShowResult(){
@@ -1006,18 +1608,79 @@ function buildAndShowResult(){
   // Roof
   if(est.roofpitch){
     var roofSqft = ROOF_SQFT[est.homesize] || 1100;
-    var rp = roofSqft * RATE.roof * (PITCH_MULT[est.roofpitch]||1) * (STORY_MULT[est.stories]||1);
+    var rp = Math.max(400, roofSqft * RATE.roof * (PITCH_MULT[est.roofpitch]||1) * (STORY_MULT[est.stories]||1));
     var roofNeedsTed = isSteep || is3Story;
     var pitchLabel = est.roofpitch==='low'?'Gentle':est.roofpitch==='medium'?'Moderate':'Steep';
     if(!roofNeedsTed){ total += rp; }
-    breakdown.push({l:'Roof Soft Wash (~'+roofSqft+' sq ft, '+pitchLabel+' pitch)', v: roofNeedsTed?'TLC will quote separately':'$'+Math.round(rp)});
+    breakdown.push({l:'Roof Soft Wash (~'+roofSqft+' sq ft, '+pitchLabel+' pitch) — low-pressure soft wash, safe for all shingle types per manufacturer guidelines', v: roofNeedsTed?'TLC will quote separately':'$'+Math.round(rp)});
+  }
+
+  // Upsell add-ons (priced at standard rates, outside package discount)
+  var upsellTotal = 0;
+  if(upsellSelected.driveway && est.drivewaySqft){
+    var udp = est.drivewaySqft * RATE.driveway;
+    upsellTotal += udp;
+    breakdown.push({l:'+ Driveway & Walkways ('+est.drivewaySqftLabel+')', v:'$'+Math.round(udp)});
+  }
+  if(upsellSelected.patio && est.patioSqft){
+    var upp = est.patioSqft * RATE.patio;
+    upsellTotal += upp;
+    breakdown.push({l:'+ Patio ('+est.patioSqftLabel+')', v:'$'+Math.round(upp)});
+  }
+  if(upsellSelected.gutters && est.guttersFt){
+    var ugp = est.guttersFt * RATE.gutters;
+    upsellTotal += ugp;
+    breakdown.push({l:'+ Gutter Brightening ('+est.guttersFtLabel+')', v:'$'+Math.round(ugp)});
+  }
+  if(upsellSelected.roof && est.roofpitch){
+    var roofSqft2 = ROOF_SQFT[est.homesize] || 1100;
+    var urp = Math.max(400, roofSqft2 * RATE.roof * (PITCH_MULT[est.roofpitch]||1));
+    var pitchLbl = est.roofpitch==='low'?'Gentle':est.roofpitch==='medium'?'Moderate':'Steep';
+    if(est.roofpitch!=='steep'){ upsellTotal += urp; breakdown.push({l:'+ Roof Soft Wash ('+pitchLbl+' pitch) — low-pressure soft wash, safe for all shingle types per manufacturer guidelines', v:'$'+Math.round(urp)}); }
+    else { breakdown.push({l:'+ Roof Soft Wash (Steep — on-site quote)', v:'TLC will confirm'}); }
+  }
+  if(upsellSelected.windows && est.windowCount){
+    var wc2 = est.windowCount;
+    var wp2 = wc2<=20 ? 175 : 175+Math.ceil((wc2-20)/5)*25;
+    upsellTotal += wp2;
+    breakdown.push({l:'+ Window Cleaning ('+wc2+' windows)', v:'$'+wp2});
+  }
+  if(upsellSelected.deck && est.deckSqft){
+    var deckRate = est.deckType==='composite'?RATE.deckComp:est.deckType==='vinyl'?RATE.pool:est.deckType==='concrete'?RATE.driveway:RATE.deckWood;
+    var udeck = est.deckSqft * deckRate;
+    upsellTotal += udeck;
+    breakdown.push({l:'+ Deck Cleaning ('+est.deckLabel+', '+(est.deckType||'wood')+')', v:'$'+Math.round(udeck)});
+  }
+  if(upsellSelected.pool && est.poolSqft){
+    var upool = est.poolSqft * RATE.pool;
+    upsellTotal += upool;
+    breakdown.push({l:'+ Pool Deck ('+est.poolLabel+')', v:'$'+Math.round(upool)});
+  }
+  if(upsellSelected.fence || customSvcs.fence){
+    breakdown.push({l:'+ Fence Washing', v:'TLC will quote — priced by linear ft & material'});
+  }
+  if(upsellSelected.rust || customSvcs.rust){
+    breakdown.push({l:'+ Rust / Stain Treatment', v:'TLC will quote — varies by severity'});
+  }
+  if(upsellSelected.graffiti || customSvcs.graffiti){
+    breakdown.push({l:'+ Graffiti Removal', v:'TLC will quote — varies by size'});
+  }
+  if(upsellSelected.grave || customSvcs.grave){
+    breakdown.push({l:'+ Monument / Gravestone Cleaning', v:'TLC will quote'});
+  }
+  if(upsellSelected.other || customSvcs.other){
+    breakdown.push({l:'+ Additional Service', v:'TLC will quote'});
+  }
+  if(Object.keys(upsellSelected).length > 0){
+    breakdown.push({l:'📍 Add-on pricing', v:'TLC confirms all add-ons on-site'});
   }
 
   // Apply package discount
   total *= disc;
+  total += upsellTotal;
   var discPct = Math.round((1-disc)*100);
   if(discPct > 0){
-    breakdown.push({l:'Package Discount ('+discPct+'% off)', v:'-$'+Math.round(total*(1-disc)/disc)});
+    breakdown.push({l:'Package Discount ('+discPct+'% off pkg services)', v:'-$'+Math.round((total - upsellTotal)*(1/disc - 1)*-1)});
   }
 
   // Apply minimum charge
@@ -1036,15 +1699,13 @@ function buildAndShowResult(){
     priceEl.style.fontSize = '1.8rem';
     document.querySelector('.price-hero .disc').textContent = 'Difficult access requires on-site evaluation';
   } else if(isSteep || is3Story){
-    var lo = Math.max(200, Math.round(total*0.90)), hi = Math.max(220, Math.round(total*1.10));
-    priceEl.textContent = '$'+lo+' – $'+hi;
+    priceEl.textContent = 'Starting at $'+Math.max(200, Math.round(total));
     priceEl.style.fontSize = '2.2rem';
-    document.querySelector('.price-hero .disc').textContent = 'Excludes roof (TLC quotes roof separately) • All prices approximate';
+    document.querySelector('.price-hero .disc').textContent = 'Excludes roof — TLC quotes roof separately';
   } else {
-    var lo = Math.max(200, Math.round(total*0.90)), hi = Math.max(220, Math.round(total*1.10));
-    priceEl.textContent = '$'+lo+' – $'+hi;
+    priceEl.textContent = 'Starting at $'+Math.max(200, Math.round(total));
     priceEl.style.fontSize = '2.6rem';
-    document.querySelector('.price-hero .disc').textContent = 'Approximate • TLC confirms exact price before work begins';
+    document.querySelector('.price-hero .disc').textContent = 'TLC confirms your exact price before any work begins';
   }
 
   // Build breakdown HTML
@@ -1054,12 +1715,13 @@ function buildAndShowResult(){
   }
   if(minApplied) html += '<div class="brow" style="color:#e67e22;"><span class="brow-label">⚠️ Service minimum applied</span><span class="brow-val">$200</span></div>';
   if(tbd) html += '<div class="brow" style="color:#e67e22;"><span>⚠️ TLC will confirm final price on-site</span></div>';
-  if(minApplied) html += '<div style="background:#fff8e1;border:2px solid #ffc107;border-radius:10px;padding:11px 13px;margin-top:10px;font-size:0.8rem;color:#856404;line-height:1.6;">📍 <strong>Minimum Service Charge:</strong> House washing has a $250 minimum. Other services have a $200 minimum per visit. A higher minimum may apply depending on your distance from our service area.</div>';
   document.getElementById('resultBreakdown').innerHTML = html;
+  injectResultNotes({minimum:minApplied, windows:!!(customSvcs.windows), roof:isSteep||is3Story, deck:!!(customSvcs.deck), tbd:tbd});
   document.getElementById('resultBackBtn').setAttribute('onclick', est.mode==='custom'?'show("customq")':'goWizardBack()');
+  document.getElementById('changePkgBtn').style.display = est.mode==='custom' ? 'none' : 'inline-block';
 
   est.resultBreakdownText = breakdown.map(function(b){ return b.l+': '+b.v; }).join(' | ');
-  est.resultTotal = '$'+Math.round(total*0.9)+' – $'+Math.round(total*1.1);
+  est.resultTotal = 'Starting at $'+Math.max(200,Math.round(total));
 
   show('result');
 }
@@ -1074,6 +1736,8 @@ function buildCustomResult(){
   var isDiff = est.access === 'difficult';
   var isSteep = est.roofpitch === 'steep';
   var is3Story = est.stories === '3';
+  var tbd = isDiff||isSteep||is3Story||customSvcs.grave||customSvcs.other||customSvcs.graffiti||customSvcs.rust;
+  var minApplied = false;
 
   if(customSvcs.housewash){
     var hp = calcHousePrice(est.homesize, est.siding, est.stories, est.condition, est.access);
@@ -1097,7 +1761,7 @@ function buildCustomResult(){
   }
   if(customSvcs.roof && est.roofpitch){
     var roofSqft = est.homesize ? (ROOF_SQFT[est.homesize]||1100) : 1200;
-    var rp = roofSqft * RATE.roof * (PITCH_MULT[est.roofpitch]||1) * (STORY_MULT[est.stories]||1);
+    var rp = Math.max(400, roofSqft * RATE.roof * (PITCH_MULT[est.roofpitch]||1) * (STORY_MULT[est.stories]||1));
     var roofNeedsTed2 = isSteep || is3Story;
     var pitchLabel = est.roofpitch==='low'?'Gentle':est.roofpitch==='medium'?'Moderate':'Steep';
     if(!roofNeedsTed2){ total += rp; }
@@ -1109,16 +1773,67 @@ function buildCustomResult(){
     total += dkp;
     breakdown.push({l:'Deck Cleaning ('+est.decktype+', '+est.decksize+' sq ft)', v:'$'+Math.round(dkp)});
   }
+  if(customSvcs.deckrest && est.deckrestsize && est.deckresttype){
+    var drSqft = parseInt(est.deckrestsize);
+    var drLabel = {clean:'Cleaning Only',stain:'Clean + Stain/Seal',restore:'Full Restoration'}[est.deckresttype]||est.deckresttype;
+    if(est.deckresttype === 'clean'){
+      var drRate = 0.625; // same as wood deck
+      var drP = Math.max(200, Math.round(drSqft * drRate));
+      total += drP;
+      breakdown.push({l:'Deck Services — '+drLabel+' (~'+drSqft+' sq ft)', v:'$'+drP});
+    } else {
+      breakdown.push({l:'Deck Services — '+drLabel+' (~'+drSqft+' sq ft)', v:'Priced after on-site estimate'});
+      tbd = true;
+    }
+  } else if(customSvcs.deckrest){
+    breakdown.push({l:'Deck Services', v:'Priced after on-site estimate'});
+    tbd = true;
+  }
+
   if(customSvcs.pool && est.poolsize){
     var plp = est.poolsize * RATE.pool;
     total += plp;
     breakdown.push({l:'Pool Deck ('+est.poolsize+' sq ft)', v:'$'+Math.round(plp)});
   }
-  if(customSvcs.windows && (est.windowCount || est.windows)){
-    var wc = est.windowCount || est.windows;
-    var wp = wc<=20 ? 175 : 175+Math.ceil((wc-20)/5)*25;
-    total += wp;
-    breakdown.push({l:'Window Cleaning ('+wc+' windows)', v:'$'+wp});
+  if(customSvcs.windows){
+    var wc = parseInt(est.windowCount || est.windows || 20);
+    if(wc > 0){
+      var wp = Math.max(175, wc<=20 ? 175 : 175+Math.ceil((wc-20)/5)*25);
+      total += wp;
+      breakdown.push({l:'Window Cleaning ('+wc+' windows)', v:'$'+wp});
+    }
+  }
+  if(customSvcs.fence && est.fencesize && est.fencetype){
+    var fenceRates = {vinyl:0.30, wood:0.40, chain:0.25, metal:0.35};
+    var fRate = fenceRates[est.fencetype] || 0.35;
+    var fSqft = parseInt(est.fencesize);
+    var fp = Math.max(150, Math.round(fSqft * fRate));
+    total += fp;
+    var fMat = {vinyl:'Vinyl',wood:'Wood',chain:'Chain Link',metal:'Metal/Iron'}[est.fencetype]||est.fencetype;
+    breakdown.push({l:'Fence Washing ('+fSqft+' lin ft, '+fMat+')', v:'$'+fp});
+  } else if(customSvcs.fence){
+    breakdown.push({l:'Fence Washing', v:'TLC will quote — priced by linear ft & material'});
+  }
+  if(customSvcs.fencerest && est.fencerestsize && est.fenceresttype){
+    var fRestSqft = parseInt(est.fencerestsize);
+    var fRestLabel = {clean:'Cleaning Only',stain:'Clean + Stain/Seal',restore:'Full Restoration'}[est.fenceresttype]||est.fenceresttype;
+    if(est.fenceresttype === 'clean'){
+      var fRestP = Math.max(150, Math.round(fRestSqft * 0.40));
+      total += fRestP;
+      breakdown.push({l:'Fence Services — '+fRestLabel+' ('+fRestSqft+' lin ft)', v:'$'+fRestP});
+    } else {
+      breakdown.push({l:'Fence Services — '+fRestLabel+' ('+fRestSqft+' lin ft)', v:'Priced after on-site estimate'});
+      tbd = true;
+    }
+  } else if(customSvcs.fencerest){
+    breakdown.push({l:'Fence Services', v:'Priced after on-site estimate'});
+    tbd = true;
+  }
+  if(customSvcs.rust){
+    breakdown.push({l:'Rust / Stain Treatment', v:'TLC will quote — varies by severity'});
+  }
+  if(customSvcs.graffiti){
+    breakdown.push({l:'Graffiti Removal', v:'TLC will quote — varies by size'});
   }
   if(customSvcs.grave){
     breakdown.push({l:'Gravestone / Monument Cleaning', v:'TLC will quote'});
@@ -1130,7 +1845,7 @@ function buildCustomResult(){
   }
 
   // Apply minimum charge
-  var minApplied = false;
+  minApplied = false;;
   var minAmt = (customSvcs.house && Object.keys(customSvcs).length === 1) ? 250 : 200;
   if(total > 0 && total < minAmt){
     total = minAmt;
@@ -1138,20 +1853,18 @@ function buildCustomResult(){
   }
 
   var priceEl = document.getElementById('resultPrice');
-  var tbd = isDiff||isSteep||is3Story||customSvcs.grave||customSvcs.other;
   if(total===0){
     priceEl.textContent = 'TLC Will Confirm Price';
     priceEl.style.fontSize='1.6rem';
     document.querySelector('.price-hero .disc').textContent = 'TLC will contact you to confirm pricing';
   } else if(tbd){
-    var lo=Math.max(200,Math.round(total*0.90)), hi=Math.max(220,Math.round(total*1.10));
-    priceEl.textContent = '$'+lo+' – $'+hi;
+    priceEl.textContent = 'Starting at $'+Math.max(200,Math.round(total));
     priceEl.style.fontSize='2rem';
-    document.querySelector('.price-hero .disc').textContent = 'Approximate — TLC confirms exact price before work begins';
+    document.querySelector('.price-hero .disc').textContent = 'Some services require on-site confirmation — TLC confirms all pricing before work begins';
   } else {
-    var lo=Math.round(total*0.90), hi=Math.round(total*1.10);
-    priceEl.textContent='$'+lo+' – $'+hi;
+    priceEl.textContent='Starting at $'+Math.max(200,Math.round(total));
     priceEl.style.fontSize='2.6rem';
+    document.querySelector('.price-hero .disc').textContent = 'TLC confirms your exact price before any work begins';
   }
 
   var html='<h3>Your Custom Quote Includes:</h3>';
@@ -1159,18 +1872,33 @@ function buildCustomResult(){
     html+='<div class="brow"><span class="brow-label">'+breakdown[i].l+'</span><span class="brow-val">'+breakdown[i].v+'</span></div>';
   }
   if(minApplied) html+='<div class="brow" style="color:#e67e22;"><span class="brow-label">⚠️ Service minimum applied</span><span class="brow-val">$200</span></div>';
-  if(tbd) html+='<div class="brow" style="color:#e67e22;"><span>⚠️ TLC will confirm exact price on-site</span></div>';
-  if(minApplied) html+='<div style="background:#fff8e1;border:2px solid #ffc107;border-radius:10px;padding:11px 13px;margin-top:10px;font-size:0.8rem;color:#856404;line-height:1.6;">📍 <strong>Minimum Service Charge:</strong> House washing has a $250 minimum. Other services have a $200 minimum per visit. A higher minimum may apply depending on your distance from our service area.</div>';
+
   document.getElementById('resultBreakdown').innerHTML=html;
+  injectResultNotes({minimum:minApplied, windows:!!(customSvcs.windows), roof:isSteep||is3Story, deck:!!(customSvcs.deck), tbd:tbd});
 
   est.resultBreakdownText=breakdown.map(function(b){return b.l+': '+b.v;}).join(' | ');
-  est.resultTotal=total>0?'$'+Math.round(total*0.9)+' – $'+Math.round(total*1.1):'TLC will confirm';
+  est.resultTotal=total>0?'Starting at $'+Math.max(200,Math.round(total)):'TLC will confirm';
 
+  document.getElementById('changePkgBtn').style.display = 'none';
   show('result');
 }
 
 function goWizardBack(){ show('wizard'); }
-function goResultBack(){ show(est.mode==='custom'?'customq':'wizard'); }
+function goResultBack(){
+  if(est.mode==='custom'){
+    if(customQSteps.length === 0){
+      // No questions were asked (grave/graffiti/other only) — go back to service picker
+      show('custom');
+    } else {
+      // Re-render the last question so listeners are fresh
+      customQIdx = customQSteps.length - 1;
+      renderCustomQ();
+      show('customq');
+    }
+  } else {
+    show('upsell');
+  }
+}
 
 // ── SUBMIT ──
 function submitQuote(){
@@ -1212,6 +1940,9 @@ function toggleLandingTile(el, key){
     landingTiles[key] = true;
     el.classList.add('selected');
   }
+  // Show/hide other description box on landing
+  var otherWrap = document.getElementById('landing-other-wrap');
+  if(otherWrap) otherWrap.style.display = landingTiles.other ? 'block' : 'none';
   var count = Object.keys(landingTiles).length;
   var el2 = document.getElementById('tileSelCount');
   if(count === 0){ el2.textContent = ''; }
@@ -1220,20 +1951,36 @@ function toggleLandingTile(el, key){
 }
 
 function startCustomFromTiles(){
-  // Pre-load any tile selections into customSvcs then open custom screen
   customSvcs = {};
-  // Sync tile selections into customSvcs checkboxes
-  Object.keys(landingTiles).forEach(function(key){
-    customSvcs[key] = true;
-    var el = document.getElementById('svc-'+key);
-    if(el){
-      el.classList.add('selected');
-      var chk = el.querySelector('.svc-chkbox');
-      if(chk) chk.textContent = '✓';
+  if(Object.keys(landingTiles).length > 0){
+    // Validate other description if selected
+    if(landingTiles.other){
+      var ldesc = document.getElementById('landingOtherDesc');
+      if(!ldesc || !ldesc.value.trim()){
+        ldesc.focus();
+        ldesc.style.boxShadow = '0 0 0 4px rgba(192,57,43,0.35)';
+        alert('Please describe what you need in the box above.');
+        return;
+      }
+      // Copy description so it shows in result
+      var realDesc = document.getElementById('otherDesc');
+      if(realDesc) realDesc.value = ldesc.value;
     }
-  });
-  // If nothing selected on tiles, just open blank
-  show('custom');
+    // Sync tile selections into customSvcs and go straight to wizard
+    Object.keys(landingTiles).forEach(function(key){
+      customSvcs[key] = true;
+      var el = document.getElementById('svc-'+key);
+      if(el){
+        el.classList.add('selected');
+        var chk = el.querySelector('.svc-chkbox');
+        if(chk) chk.textContent = '✓';
+      }
+    });
+    startCustomWizard();
+  } else {
+    // Nothing pre-selected - open the checkbox screen to pick services
+    show('custom');
+  }
 }
 
 function startOver(){
