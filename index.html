@@ -71,7 +71,12 @@ body { font-family:-apple-system,'Segoe UI',sans-serif; background:#f0f4f8; min-
 .trust-item p { font-size:0.73rem; color:#666; }
 
 /* WIZARD */
-.wizard { padding:15px; max-width:540px; margin:0 auto; }
+.wizard { padding:15px; max-width:540px; margin:0 auto; padding-bottom:80px; }
+.sticky-btn-bar { position:fixed; bottom:0; left:0; right:0; background:white; padding:12px 16px; box-shadow:0 -2px 10px rgba(0,0,0,0.1); z-index:100; display:none; }
+.sticky-btn-bar.visible { display:block; }
+.sticky-btn-bar button { display:block; background:linear-gradient(135deg,#3AABCD,#2E9AB8); color:white; border:none; border-radius:30px; padding:15px; font-size:1rem; font-weight:800; width:100%; cursor:pointer; }
+@keyframes btnPulse { 0%{transform:scale(1);box-shadow:0 0 0 0 rgba(58,171,205,0.6);} 50%{transform:scale(1.03);box-shadow:0 0 0 10px rgba(58,171,205,0);} 100%{transform:scale(1);box-shadow:0 0 0 0 rgba(58,171,205,0);} }
+.sticky-btn-bar button.pulse { animation:btnPulse 0.7s ease 3; }
 .progress-bar { background:#e0e0e0; border-radius:10px; height:7px; margin:8px 0 6px; }
 .progress-fill { background:linear-gradient(135deg,#3AABCD,#7DC242); height:7px; border-radius:10px; transition:width 0.3s ease; }
 .step-label { text-align:center; color:#888; font-size:0.78rem; margin-bottom:12px; }
@@ -83,16 +88,16 @@ body { font-family:-apple-system,'Segoe UI',sans-serif; background:#f0f4f8; min-
 .qcard h2 { font-size:1.1rem; color:#222; margin-bottom:3px; }
 .qcard .qsub { font-size:0.78rem; color:#888; margin-bottom:14px; }
 
-.choice { display:flex; align-items:center; gap:11px; border:2px solid #e0e0e0; border-radius:12px; padding:12px 14px; margin-bottom:9px; cursor:pointer; min-height:52px; }
+.choice { display:flex; align-items:center; gap:10px; border:2px solid #e0e0e0; border-radius:10px; padding:9px 12px; margin-bottom:6px; cursor:pointer; min-height:44px; }
 .choice:active { background:#f0f9ff; border-color:#3AABCD; }
 .choice.selected { border-color:#3AABCD; background:#e7f5ff; }
 .choice-radio { width:20px; height:20px; border-radius:50%; border:2px solid #ccc; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
 .choice.selected .choice-radio { border-color:#3AABCD; background:#3AABCD; }
 .choice.selected .choice-radio:after { content:''; width:7px; height:7px; background:white; border-radius:50%; display:block; }
 .choice-body { flex:1; }
-.choice-title { font-weight:700; font-size:0.92rem; color:#222; }
+.choice-title { font-weight:700; font-size:0.88rem; color:#222; }
 .choice-desc { font-size:0.75rem; color:#666; margin-top:2px; }
-.choice-mod { font-size:0.74rem; font-weight:600; margin-top:2px; color:#7DC242; }
+.choice-mod { font-size:0.72rem; font-weight:600; margin-top:1px; color:#7DC242; }
 .choice-mod.warn { color:#e67e22; }
 .choice-mod.danger { color:#dc3545; }
 
@@ -179,6 +184,8 @@ body { font-family:-apple-system,'Segoe UI',sans-serif; background:#f0f4f8; min-
 .note-box { background:#f8f9fa; border-left:4px solid #3AABCD; border-radius:8px; padding:11px 14px; margin:10px 0; font-size:0.78rem; color:#555; line-height:1.5; }
 button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:manipulation; -webkit-tap-highlight-color:transparent; cursor:pointer; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>emailjs.init("DGAhorS_O8LM2ETJc");</script>
 </head>
 <body>
 
@@ -899,7 +906,7 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
     <div style="font-size:0.82rem;color:#666;margin-bottom:12px;text-align:center;">Tap any service to add it — or skip to see your quote</div>
     <div id="upsellTiles" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
   </div>
-  <button onclick="upsellDone()" style="width:100%;padding:16px;background:linear-gradient(135deg,#3AABCD,#2E9AB8);color:white;border:none;border-radius:30px;font-size:1rem;font-weight:800;cursor:pointer;margin-bottom:10px;">See My Quote →</button>
+  <div style="height:70px;"></div><!-- spacer for sticky btn -->
   <p style="text-align:center;font-size:0.78rem;color:#999;">Selected add-ons will be included in your estimate</p>
 </div>
 </div>
@@ -937,13 +944,18 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
       <div><label>First Name *</label><input type="text" id="firstName" placeholder="John" autocomplete="given-name"></div>
       <div><label>Last Name *</label><input type="text" id="lastName" placeholder="Smith" autocomplete="family-name"></div>
     </div>
-    <label>Phone *</label><input type="tel" id="phone" placeholder="(919) 555-1234" autocomplete="tel">
+    <label>Phone *</label><input type="tel" id="phone" placeholder="(919) 555-1234" autocomplete="tel" oninput="formatPhone(this)" maxlength="14">
     <label>Email *</label><input type="email" id="email" placeholder="john@email.com" autocomplete="email">
-    <label>Property Address *</label><input type="text" id="address" placeholder="123 Main St, Wake Forest, NC" autocomplete="street-address">
-    <label>Preferred Service Date</label><input type="date" id="serviceDate">
-    <label>Best Time to Call</label>
-    <select id="bestTime"><option value="">Select...</option><option>Morning (8am–12pm)</option><option>Afternoon (12pm–5pm)</option><option>Evening (5pm–7pm)</option><option>Anytime</option></select>
-    <label>How Did You Hear About Us?</label>
+    <label>Street Address *</label><input type="text" id="addrStreet" placeholder="123 Main St" autocomplete="address-line1">
+    <div class="form-row">
+      <div><label>City *</label><input type="text" id="addrCity" placeholder="Wake Forest" autocomplete="address-level2"></div>
+      <div><label>State *</label><input type="text" id="addrState" placeholder="NC" autocomplete="address-level1" maxlength="2"></div>
+    </div>
+    <label>Zip Code *</label><input type="text" id="addrZip" placeholder="27587" autocomplete="postal-code" maxlength="10">
+    
+    <label>Best Way to Contact *</label>
+    <select id="bestTime"><option value="">Select...</option><option>Phone Call</option><option>Text Message</option><option>Email</option></select>
+    <label>How Did You Hear About Us? *</label>
     <select id="hearAbout"><option value="">Select...</option><option>Google Search</option><option>Google Maps</option><option>Facebook</option><option>Nextdoor</option><option>Friend or Family Referral</option><option>Yard Sign</option><option>Repeat Customer</option><option>Other</option></select>
     <label>Additional Notes</label>
     <textarea id="notes" rows="3" placeholder="Anything else we should know..."></textarea>
@@ -964,7 +976,7 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
 <div class="success-wrap">
   <div class="check">✅</div>
   <h2>Thanks, <span id="finalName"></span>!</h2>
-  <p style="color:#666;margin-bottom:14px;">Redirecting you to complete your quote...</p>
+  <p style="color:#666;margin-bottom:14px;">Your quote request has been sent! TLC will be in touch shortly.</p>
   <div class="price-hero" style="margin-bottom:14px;">
     <h2>Your Approximate Estimate</h2>
     <div class="amount" id="finalPrice"></div>
@@ -972,8 +984,7 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
   </div>
   <div class="warn-box"><h4>⚠️ Approximate Quote</h4><p>Final pricing confirmed by TLC before any work begins.</p></div>
   <a class="call-btn" href="tel:9198071266">📞 Call TLC: 919-807-1266</a>
-  <p style="color:#999;font-size:0.78rem;margin-bottom:14px;">Not redirecting? <a id="manualLink" href="#" style="color:#3AABCD;">Click here</a></p>
-  <button class="pkg-btn" style="max-width:180px;margin:0 auto;display:block;" onclick="startOver()">Start Over</button>
+  <button class="pkg-btn" style="max-width:180px;margin:0 auto;display:block;margin-top:14px;" onclick="startOver()">Start Over</button>
 </div>
 </div>
 
@@ -981,6 +992,24 @@ button, .pkg-card, .choice, .size-btn, .csvc-tile, .back-link, a { touch-action:
 // ── SIDING MULTI-SELECT ──
 var sidingSelections = {};
 var SIDING_MULT_MAP = { vinyl:1.0, hardiplank:1.10, brick:1.30, wood:1.25, stucco:1.50, mixed:1.20 };
+
+function formatPhone(input){
+  var digits = input.value.replace(/\D/g,'').substring(0,10);
+  var len = digits.length;
+  if(len === 0){ input.value = ''; }
+  else if(len <= 3){ input.value = '(' + digits; }
+  else if(len <= 6){ input.value = '(' + digits.substring(0,3) + ') ' + digits.substring(3); }
+  else { input.value = '(' + digits.substring(0,3) + ') ' + digits.substring(3,6) + '-' + digits.substring(6); }
+}
+
+function pulseStickyBtn(){
+  var btn = document.getElementById('stickyBtn');
+  if(!btn) return;
+  btn.classList.remove('pulse');
+  void btn.offsetWidth;
+  btn.classList.add('pulse');
+  setTimeout(function(){ btn.classList.remove('pulse'); }, 2200);
+}
 
 function toggleSiding(key, el){
   if(sidingSelections[key]){
@@ -993,6 +1022,7 @@ function toggleSiding(key, el){
     el.classList.add('selected');
     el.querySelector('.choice-radio').style.background = '#3AABCD';
     el.querySelector('.choice-radio').style.borderColor = '#3AABCD';
+    pulseStickyBtn();
   }
   // Show continue button once at least one selected
   var btn = document.getElementById('sidingContinueBtn');
@@ -1000,6 +1030,7 @@ function toggleSiding(key, el){
 }
 
 function confirmSiding(){
+  hideStickyBtn();
   if(Object.keys(sidingSelections).length === 0){ alert('Please select at least one siding type.'); return; }
   // Calculate blended multiplier (average of selected)
   var keys = Object.keys(sidingSelections);
@@ -1015,7 +1046,7 @@ function confirmSiding(){
     var r = el.querySelector('.choice-radio');
     if(r){ r.style.background=''; r.style.borderColor=''; }
   });
-  document.getElementById('sidingContinueBtn').style.display = 'none';
+  document.getElementById('sidingContinueBtn').style.display = 'none'; hideStickyBtn();
   wizIdx++;
   if(wizIdx >= wizSteps.length){ showUpsell(); } else { showWizStep(); }
 }
@@ -1023,21 +1054,35 @@ function confirmSiding(){
 // ── UPSELL ADD-ONS ──
 var upsellSelected = {};
 
+var UPSELL_SVGS = {
+  driveway: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_dr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b8b8b8"/><stop offset="100%" stop-color="#d8d8d8"/></linearGradient><linearGradient id="uc_car" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a8fd4"/><stop offset="100%" stop-color="#3a6ab0"/></linearGradient></defs><polygon points="14,8 34,8 46,46 2,46" fill="url(#uc_dr)" stroke="#999" stroke-width="1"/><line x1="24" y1="10" x2="24" y2="16" stroke="white" stroke-width="1.8" stroke-linecap="round"/><line x1="24" y1="20" x2="24" y2="26" stroke="white" stroke-width="1.8" stroke-linecap="round"/><ellipse cx="24" cy="23" rx="14" ry="3" fill="#888" opacity="0.2"/><rect x="10" y="10" width="28" height="14" rx="3" fill="url(#uc_car)" stroke="#2a5a90" stroke-width="1"/><rect x="14" y="5" width="20" height="8" rx="2.5" fill="#6a9fe4" stroke="#2a5a90" stroke-width="1"/><rect x="15" y="5.5" width="18" height="7" rx="2" fill="#cce8ff" opacity="0.85"/><circle cx="14" cy="24" r="5" fill="#222"/><circle cx="14" cy="24" r="2.8" fill="#555"/><circle cx="34" cy="24" r="5" fill="#222"/><circle cx="34" cy="24" r="2.8" fill="#555"/></svg>',
+  patio: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_pv1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#c8c0b0"/><stop offset="100%" stop-color="#a8a090"/></linearGradient><linearGradient id="uc_pv2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b8b0a0"/><stop offset="100%" stop-color="#989088"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="2" fill="#b0a898"/><rect x="3" y="3" width="20" height="10" rx="1" fill="url(#uc_pv1)" stroke="#888" stroke-width="0.8"/><rect x="25" y="3" width="20" height="10" rx="1" fill="url(#uc_pv2)" stroke="#888" stroke-width="0.8"/><rect x="3" y="15" width="13" height="10" rx="1" fill="url(#uc_pv2)" stroke="#888" stroke-width="0.8"/><rect x="18" y="15" width="20" height="10" rx="1" fill="url(#uc_pv1)" stroke="#888" stroke-width="0.8"/><rect x="40" y="15" width="5" height="10" rx="1" fill="url(#uc_pv2)" stroke="#888" stroke-width="0.8"/><rect x="3" y="27" width="20" height="10" rx="1" fill="url(#uc_pv1)" stroke="#888" stroke-width="0.8"/><rect x="25" y="27" width="20" height="10" rx="1" fill="url(#uc_pv2)" stroke="#888" stroke-width="0.8"/><rect x="3" y="39" width="13" height="6" rx="1" fill="url(#uc_pv2)" stroke="#888" stroke-width="0.8"/><rect x="18" y="39" width="20" height="6" rx="1" fill="url(#uc_pv1)" stroke="#888" stroke-width="0.8"/></svg>',
+  gutters: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_rs" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#909090"/><stop offset="100%" stop-color="#b8b8b8"/></linearGradient><linearGradient id="uc_gm" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#909090"/></linearGradient></defs><polygon points="0,18 48,18 44,6 4,6" fill="url(#uc_rs)" stroke="#555" stroke-width="1"/><rect x="0" y="18" width="48" height="5" fill="#8B7355"/><path d="M0,23 L0,36 Q0,39 3,39 L45,39 Q48,39 48,36 L48,23 Z" fill="url(#uc_gm)" stroke="#777" stroke-width="1.2"/><ellipse cx="10" cy="33" rx="5" ry="2.5" fill="#6aaa30" transform="rotate(-20,10,33)"/><ellipse cx="22" cy="31" rx="4" ry="2" fill="#7DC242" transform="rotate(15,22,31)"/><ellipse cx="33" cy="33" rx="5" ry="2.5" fill="#559020" transform="rotate(-10,33,33)"/><ellipse cx="42" cy="31" rx="3.5" ry="2" fill="#6aaa30" transform="rotate(25,42,31)"/><rect x="43" y="39" width="5" height="9" rx="1" fill="#b0b0b0" stroke="#888" stroke-width="1"/></svg>',
+  roof: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_rL" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#c8c8c8"/><stop offset="100%" stop-color="#a0a0a0"/></linearGradient><linearGradient id="uc_rR" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#686868"/><stop offset="100%" stop-color="#505050"/></linearGradient></defs><polygon points="24,4 2,30 24,30" fill="url(#uc_rL)" stroke="#444" stroke-width="1.5" stroke-linejoin="round"/><polygon points="24,4 46,30 24,30" fill="url(#uc_rR)" stroke="#333" stroke-width="1.5" stroke-linejoin="round"/><line x1="24" y1="4" x2="24" y2="30" stroke="#222" stroke-width="3" stroke-linecap="round"/><rect x="30" y="9" width="9" height="8" rx="1" fill="#aaa" stroke="#555" stroke-width="1"/><rect x="29" y="7" width="11" height="3" rx="1" fill="#666"/><rect x="2" y="30" width="44" height="4" rx="1" fill="#d0d0d0" stroke="#aaa" stroke-width="1"/><rect x="2" y="34" width="44" height="3" rx="1" fill="#aaa" stroke="#888" stroke-width="1"/><rect x="2" y="37" width="44" height="9" rx="1" fill="#f0ece4" stroke="#ccc" stroke-width="1"/></svg>',
+  windows: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d4eeff"/><stop offset="100%" stop-color="#a8ccee"/></linearGradient><linearGradient id="uc_gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b0d4f0"/><stop offset="100%" stop-color="#88b0d8"/></linearGradient></defs><rect x="3" y="3" width="42" height="42" rx="3" fill="#666" stroke="#333" stroke-width="1.5"/><rect x="5" y="5" width="38" height="38" rx="2" fill="#444"/><rect x="6" y="6" width="17" height="17" rx="1" fill="url(#uc_gl)"/><rect x="25" y="6" width="17" height="17" rx="1" fill="url(#uc_gd)"/><rect x="6" y="25" width="17" height="17" rx="1" fill="url(#uc_gd)"/><rect x="25" y="25" width="17" height="17" rx="1" fill="url(#uc_gl)"/><line x1="8" y1="8" x2="18" y2="8" stroke="white" stroke-width="2" opacity="0.7" stroke-linecap="round"/><line x1="27" y1="8" x2="37" y2="8" stroke="white" stroke-width="2" opacity="0.5" stroke-linecap="round"/><line x1="8" y1="27" x2="18" y2="27" stroke="white" stroke-width="2" opacity="0.5" stroke-linecap="round"/><line x1="27" y1="27" x2="37" y2="27" stroke="white" stroke-width="2" opacity="0.7" stroke-linecap="round"/></svg>',
+  deckrest: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_pk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8c888"/><stop offset="100%" stop-color="#c8a860"/></linearGradient><linearGradient id="uc_pk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d8b870"/><stop offset="100%" stop-color="#b89850"/></linearGradient><linearGradient id="uc_rl" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a07848"/><stop offset="100%" stop-color="#785830"/></linearGradient></defs><rect x="2" y="26" width="44" height="7" rx="0.5" fill="url(#uc_pk1)" stroke="#8B6340" stroke-width="0.8"/><rect x="2" y="33" width="44" height="7" rx="0.5" fill="url(#uc_pk2)" stroke="#8B6340" stroke-width="0.8"/><rect x="2" y="40" width="44" height="6" rx="0.5" fill="url(#uc_pk1)" stroke="#8B6340" stroke-width="0.8"/><rect x="3" y="8" width="4" height="20" rx="1" fill="url(#uc_rl)" stroke="#5a3a18" stroke-width="0.8"/><rect x="41" y="8" width="4" height="20" rx="1" fill="url(#uc_rl)" stroke="#5a3a18" stroke-width="0.8"/><rect x="22" y="10" width="4" height="18" rx="1" fill="url(#uc_rl)" stroke="#5a3a18" stroke-width="0.8"/><rect x="2" y="6" width="44" height="4" rx="1.5" fill="url(#uc_rl)" stroke="#5a3a18" stroke-width="1"/><rect x="2" y="14" width="44" height="2.5" rx="1" fill="#b08858" opacity="0.8"/><rect x="2" y="20" width="44" height="2.5" rx="1" fill="#b08858" opacity="0.8"/></svg>',
+  pool: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_wat" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a9fd4"/><stop offset="100%" stop-color="#0d6a9a"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="3" fill="#ccc" stroke="#aaa" stroke-width="1.5"/><rect x="8" y="8" width="32" height="32" rx="6" fill="url(#uc_wat)"/><line x1="18" y1="9" x2="18" y2="39" stroke="#f9c74f" stroke-width="1.5" opacity="0.8"/><line x1="30" y1="9" x2="30" y2="39" stroke="#f9c74f" stroke-width="1.5" opacity="0.8"/><ellipse cx="13" cy="16" rx="3" ry="1.2" fill="white" opacity="0.25" transform="rotate(-20,13,16)"/><ellipse cx="24" cy="22" rx="4" ry="1.5" fill="white" opacity="0.2" transform="rotate(10,24,22)"/><line x1="36" y1="10" x2="36" y2="24" stroke="#ccc" stroke-width="1.8" opacity="0.9"/><line x1="40" y1="10" x2="40" y2="24" stroke="#ccc" stroke-width="1.8" opacity="0.9"/><line x1="36" y1="17" x2="40" y2="17" stroke="#ccc" stroke-width="1.5" opacity="0.9"/></svg>',
+  fencerest: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_bd1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#e8c888"/><stop offset="100%" stop-color="#c8a860"/></linearGradient><linearGradient id="uc_bd2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#d8b870"/><stop offset="100%" stop-color="#b89850"/></linearGradient></defs><rect x="0" y="38" width="48" height="10" fill="#7DC242" opacity="0.5"/><rect x="1" y="10" width="8" height="30" rx="1" fill="url(#uc_bd1)" stroke="#8B6340" stroke-width="1"/><polygon points="1,10 5,2 9,10" fill="#c8a060" stroke="#8B6340" stroke-width="1"/><rect x="11" y="10" width="8" height="30" rx="1" fill="url(#uc_bd2)" stroke="#8B6340" stroke-width="1"/><polygon points="11,10 15,2 19,10" fill="#b89040" stroke="#8B6340" stroke-width="1"/><rect x="21" y="10" width="8" height="30" rx="1" fill="url(#uc_bd1)" stroke="#8B6340" stroke-width="1"/><polygon points="21,10 25,2 29,10" fill="#c8a060" stroke="#8B6340" stroke-width="1"/><rect x="31" y="10" width="8" height="30" rx="1" fill="url(#uc_bd2)" stroke="#8B6340" stroke-width="1"/><polygon points="31,10 35,2 39,10" fill="#b89040" stroke="#8B6340" stroke-width="1"/><rect x="41" y="10" width="7" height="30" rx="1" fill="url(#uc_bd1)" stroke="#8B6340" stroke-width="1"/><polygon points="41,10 44.5,2 48,10" fill="#c8a060" stroke="#8B6340" stroke-width="1"/><rect x="0" y="17" width="48" height="4" rx="1" fill="#a07840" opacity="0.9"/><rect x="0" y="30" width="48" height="4" rx="1" fill="#a07840" opacity="0.9"/></svg>',
+  rust: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_crs" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d0d0d0"/><stop offset="100%" stop-color="#b8b8b8"/></linearGradient><radialGradient id="uc_rb1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c0392b" stop-opacity="0.9"/><stop offset="50%" stop-color="#b5651d" stop-opacity="0.8"/><stop offset="100%" stop-color="#8B4513" stop-opacity="0.4"/></radialGradient></defs><rect x="2" y="2" width="44" height="44" rx="3" fill="url(#uc_crs)" stroke="#aaa" stroke-width="1.5"/><ellipse cx="22" cy="22" rx="16" ry="13" fill="url(#uc_rb1)"/><path d="M18,30 Q17,36 16,44" stroke="#b5651d" stroke-width="2.5" fill="none" opacity="0.6" stroke-linecap="round"/><path d="M24,32 Q24,38 23,44" stroke="#c0392b" stroke-width="2" fill="none" opacity="0.5" stroke-linecap="round"/><circle cx="24" cy="16" r="3" fill="#888" stroke="#666" stroke-width="1"/><circle cx="24" cy="16" r="1.2" fill="#555"/></svg>',
+  graffiti: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><rect x="2" y="2" width="44" height="44" rx="2" fill="#c8a888"/><rect x="2" y="2" width="22" height="9" rx="0.5" fill="#c0a080" stroke="#907050" stroke-width="0.8"/><rect x="26" y="2" width="20" height="9" rx="0.5" fill="#c8a888" stroke="#907050" stroke-width="0.8"/><rect x="2" y="13" width="14" height="9" rx="0.5" fill="#bca078" stroke="#907050" stroke-width="0.8"/><rect x="18" y="13" width="22" height="9" rx="0.5" fill="#c4a484" stroke="#907050" stroke-width="0.8"/><rect x="2" y="24" width="22" height="9" rx="0.5" fill="#c8a888" stroke="#907050" stroke-width="0.8"/><rect x="26" y="24" width="20" height="9" rx="0.5" fill="#bca078" stroke="#907050" stroke-width="0.8"/><rect x="2" y="35" width="14" height="9" rx="0.5" fill="#c4a484" stroke="#907050" stroke-width="0.8"/><rect x="18" y="35" width="22" height="9" rx="0.5" fill="#c0a080" stroke="#907050" stroke-width="0.8"/><path d="M6,32 L6,14 Q6,10 10,10 Q14,10 14,14 Q14,20 10,22 L14,32" stroke="#e74c3c" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,10 L18,28 L28,28 L28,10" stroke="#2980b9" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M18,19 L28,19" stroke="#2980b9" stroke-width="3" stroke-linecap="round"/><path d="M32,10 Q40,6 38,18 Q36,26 42,28 Q46,30 44,38" stroke="#27ae60" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>',
+  grave: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_stn" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#d8d8d8"/><stop offset="100%" stop-color="#a8a8a8"/></linearGradient></defs><rect x="2" y="38" width="44" height="9" rx="2" fill="#7DC242" opacity="0.6"/><rect x="9" y="34" width="30" height="6" rx="1" fill="#c8c8c8" stroke="#888" stroke-width="1.2"/><rect x="13" y="17" width="22" height="19" fill="url(#uc_stn)" stroke="#888" stroke-width="1.8"/><path d="M13,17 Q13,5 24,5 Q35,5 35,17" fill="url(#uc_stn)" stroke="#888" stroke-width="1.8"/><line x1="24" y1="9" x2="24" y2="20" stroke="#888" stroke-width="2.5"/><line x1="18" y1="13" x2="30" y2="13" stroke="#888" stroke-width="2.5"/><line x1="17" y1="24" x2="31" y2="24" stroke="#aaa" stroke-width="1.5"/><line x1="17" y1="28" x2="31" y2="28" stroke="#aaa" stroke-width="1.5"/></svg>',
+  other: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_bbl" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#e8f7d4"/><stop offset="100%" stop-color="#c8e8a4"/></linearGradient></defs><circle cx="24" cy="24" r="22" fill="url(#uc_bbl)" stroke="#7DC242" stroke-width="2.5"/><path d="M17,18 Q17,10 24,10 Q31,10 31,17 Q31,23 24,25 L24,30" stroke="#559020" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="24" cy="35" r="3" fill="#559020"/></svg>',
+  housewash: '<svg width="36" height="36" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="uc_hw_sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d4eeff"/><stop offset="100%" stop-color="#f0f8ff"/></linearGradient><linearGradient id="uc_hw_roof" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#8B7355"/><stop offset="100%" stop-color="#5a4a30"/></linearGradient></defs><rect x="0" y="0" width="48" height="48" fill="url(#uc_hw_sky)"/><polygon points="24,4 44,20 4,20" fill="url(#uc_hw_roof)" stroke="#3a2a10" stroke-width="1"/><rect x="4" y="21" width="20" height="22" fill="#f5f0e8"/><rect x="24" y="21" width="20" height="22" fill="#d8d0c0"/><rect x="20" y="31" width="8" height="12" rx="1" fill="#7a5c3a"/><rect x="7" y="25" width="8" height="7" rx="0.5" fill="#a8d4f0" stroke="#888" stroke-width="0.8"/><rect x="33" y="25" width="8" height="7" rx="0.5" fill="#88b8d8" stroke="#888" stroke-width="0.8"/><ellipse cx="12" cy="36" rx="1.2" ry="2" fill="#3AABCD" opacity="0.7"/><ellipse cx="24" cy="34" rx="1.2" ry="2" fill="#3AABCD" opacity="0.6"/><ellipse cx="36" cy="36" rx="1.2" ry="2" fill="#3AABCD" opacity="0.7"/></svg>'
+};
+
 var UPSELL_ALL = [
-  { key:'driveway',  icon:'🛣️', label:'Driveway & Walkways' },
-  { key:'patio',     icon:'🪨', label:'Patio Cleaning' },
-  { key:'gutters',   icon:'🌧️', label:'Gutter Brightening' },
-  { key:'roof',      icon:'🏠', label:'Roof Soft Wash' },
-  { key:'windows',   icon:'🪟', label:'Window Cleaning' },
-  { key:'deck',      icon:'🪵', label:'Deck Cleaning' },
-  { key:'deckrest',  icon:'🔨', label:'Deck Services' },
-  { key:'pool',      icon:'🫧', label:'Pool Deck' },
-  { key:'fence',     icon:'🪵', label:'Fence Washing' },
-  { key:'fencerest', icon:'🚧', label:'Fence Services' },
-  { key:'rust',      icon:'🧪', label:'Rust / Stain Treatment' },
-  { key:'graffiti',  icon:'🎨', label:'Graffiti Removal' },
-  { key:'grave',     icon:'🪦', label:'Monument / Gravestone' },
-  { key:'other',     icon:'❓', label:'Something Else' },
+  { key:'driveway',  label:'Driveway & Walkways' },
+  { key:'patio',     label:'Patio Cleaning' },
+  { key:'gutters',   label:'Gutter Brightening' },
+  { key:'roof',      label:'Roof Soft Wash' },
+  { key:'windows',   label:'Window Cleaning' },
+  { key:'deckrest',  label:'Deck Services' },
+  { key:'pool',      label:'Pool Deck' },
+  { key:'fencerest', label:'Fence Services' },
+  { key:'rust',      label:'Rust / Stain Treatment' },
+  { key:'graffiti',  label:'Graffiti Removal' },
+  { key:'grave',     label:'Monument / Gravestone' },
+  { key:'other',     label:'Something Else' },
 ];
 
 function showUpsell(){
@@ -1055,14 +1100,16 @@ function showUpsell(){
   var tiles = UPSELL_ALL.filter(function(s){ return included.indexOf(s.key) === -1; });
   var html = '';
   tiles.forEach(function(s){
+    var svgIcon = UPSELL_SVGS[s.key] || '';
     html += '<div id="upsell-'+s.key+'" onclick="toggleUpsell(\'' + s.key + '\')" style="border:2px solid #e0e0e0;border-radius:12px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s;background:white;">' +
-      '<div style="font-size:1.6rem;">'+s.icon+'</div>' +
-      '<div style="font-size:0.78rem;font-weight:700;color:#333;margin-top:4px;">'+s.label+'</div>' +
+      '<div style="display:flex;justify-content:center;margin-bottom:4px;">'+svgIcon+'</div>' +
+      '<div style="font-size:0.78rem;font-weight:700;color:#333;margin-top:2px;">'+s.label+'</div>' +
       '</div>';
   });
   document.getElementById('upsellTiles').innerHTML = html;
   setTimeout(function(){ if(window._fixTouchables) window._fixTouchables(); }, 50);
   show('upsell');
+  showStickyBtn('See My Quote →', upsellDone);
 }
 
 function toggleUpsell(key){
@@ -1292,7 +1339,8 @@ var PKG_STEPS = {
 var wizSteps = [];
 var wizIdx = 0;
 
-function show(id){ document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');}); document.getElementById('screen-'+id).classList.add('active'); window.scrollTo(0,0); }
+function show(id){
+  hideStickyBtn(); document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');}); document.getElementById('screen-'+id).classList.add('active'); window.scrollTo(0,0); }
 
 // ── PACKAGE WIZARD ──
 // Scroll-aware touch system — single delegated listener, no eval, no Function()
@@ -1361,6 +1409,12 @@ function showWizStep(){
   var pct = Math.round(((wizIdx+1)/wizSteps.length)*100);
   document.getElementById('progressFill').style.width = pct+'%';
   document.getElementById('stepLabel').textContent = 'Step '+(wizIdx+1)+' of '+wizSteps.length;
+  // Show sticky continue btn for siding step (multi-select needs manual confirm)
+  if(stepId === 'siding'){
+    showStickyBtn('Continue →', confirmSiding);
+  } else {
+    hideStickyBtn();
+  }
   window.scrollTo(0,0);
 }
 
@@ -1368,6 +1422,19 @@ function wizBack(){
   if(wizIdx === 0){ show('landing'); return; }
   wizIdx--;
   showWizStep();
+}
+
+function showStickyBtn(label, fn){
+  var bar = document.getElementById('stickyBtnBar');
+  var btn = document.getElementById('stickyBtn');
+  if(!bar) return;
+  bar.classList.add('visible');
+  btn.textContent = label;
+  btn.onclick = fn;
+}
+function hideStickyBtn(){
+  var bar = document.getElementById('stickyBtnBar');
+  if(bar) bar.classList.remove('visible');
 }
 
 function wizPick(field, val, el){
@@ -1519,6 +1586,13 @@ function renderCustomQ(){
   old.parentNode.replaceChild(c, old);
   c.innerHTML = buildCustomQHTML(step.id);
   window.scrollTo(0,0);
+  // Show sticky button for steps that need manual confirm
+  var stickySteps = ['deckresttype','fenceresttype','deckrestsize','fencerestsize','poolsize','decksize'];
+  if(stickySteps.indexOf(step.id) !== -1){
+    showStickyBtn('Continue →', function(){ cqAdvance(); });
+  } else {
+    hideStickyBtn();
+  }
   // Wire choice tiles fresh — no stacking
   c.querySelectorAll('.cq-choice, .cq-roof-choice').forEach(function(tile){
     var val = tile.getAttribute('data-val');
@@ -1998,6 +2072,7 @@ function buildAndShowResult(){
 }
 
 function buildCustomResult(){
+  hideStickyBtn();
   // Merge customQData into est
   Object.keys(customQData).forEach(function(k){ est[k]=customQData[k]; });
   est.mode = 'custom';
@@ -2177,28 +2252,56 @@ function submitQuote(){
   var ln=document.getElementById('lastName').value.trim();
   var ph=document.getElementById('phone').value.trim();
   var em=document.getElementById('email').value.trim();
-  var ad=document.getElementById('address').value.trim();
-  if(!fn||!ln||!ph||!em||!ad){alert('Please fill in all required fields (marked with *).'); return;}
+  var adStreet=document.getElementById('addrStreet').value.trim();
+  var adCity=document.getElementById('addrCity').value.trim();
+  var adState=document.getElementById('addrState').value.trim();
+  var adZip=document.getElementById('addrZip').value.trim();
+  var bt=document.getElementById('bestTime').value.trim();
+  var ad = adStreet + ', ' + adCity + ', ' + adState + ' ' + adZip;
+  if(!fn){alert('Please enter your first name.'); return;}
+  if(!ln){alert('Please enter your last name.'); return;}
+  if(!ph){alert('Please enter your phone number.'); return;}
+  if(!em){alert('Please enter your email address.'); return;}
+  if(!adStreet){alert('Please enter your street address.'); return;}
+  if(!adCity){alert('Please enter your city.'); return;}
+  if(!adState){alert('Please enter your state.'); return;}
+  if(!adZip){alert('Please enter your zip code.'); return;}
+  if(!bt){alert('Please select your preferred contact method.'); return;}
+  var ha=document.getElementById('hearAbout').value;
+  if(!ha){alert('Please let us know how you heard about us.'); return;}
 
   var pr=document.getElementById('resultPrice').textContent;
-  var WIX='https://www.tlcpressurewashing.com/quote-form';
-  var p=new URLSearchParams({
-    firstName:fn, lastName:ln, phone:ph, email:em, address:ad,
-    serviceDate:document.getElementById('serviceDate').value,
-    bestTime:document.getElementById('bestTime').value,
-    hearAbout:document.getElementById('hearAbout').value,
-    notes:document.getElementById('notes').value.trim(),
-    estimatedPrice:pr,
-    packageSelected:est.pkg||'Custom',
-    quoteDetails:est.resultBreakdownText||'',
-    accessNote:est.access==='difficult'?'Difficult access — needs on-site eval':''
-  });
+  var sd='';
+  var nt=document.getElementById('notes').value.trim();
 
+  // Show success screen immediately
   document.getElementById('finalName').textContent=fn;
   document.getElementById('finalPrice').textContent=pr;
-  document.getElementById('manualLink').href=WIX+'?'+p.toString();
   show('success');
-  setTimeout(function(){window.location.href=WIX+'?'+p.toString();},3000);
+
+  // Send via EmailJS
+  var templateParams = {
+    firstName: fn,
+    lastName: ln,
+    phone: ph,
+    email: em,
+    address: ad,
+    serviceDate: sd || 'Not specified',
+    bestTime: bt || 'Not specified',
+    hearAbout: ha || 'Not specified',
+    notes: nt || 'None',
+    estimatedPrice: pr,
+    packageSelected: est.pkg || 'Custom',
+    quoteDetails: est.resultBreakdownText || '',
+    accessNote: est.access==='difficult' ? 'Difficult access — needs on-site eval' : ''
+  };
+
+  emailjs.send('service_rs5ka6x', 'template_kexicqa', templateParams)
+    .then(function(){
+      console.log('Quote email sent successfully');
+    }, function(error){
+      console.error('EmailJS error:', error);
+    });
 }
 
 // Landing tile toggle
@@ -2258,16 +2361,19 @@ function startOver(){
   est={}; customSvcs={};
   document.querySelectorAll('.choice').forEach(function(c){c.classList.remove('selected');});
   document.querySelectorAll('.svc-check').forEach(function(c){c.classList.remove('selected');c.querySelector('.svc-chkbox').textContent='';});
-  ['firstName','lastName','phone','email','address','serviceDate','bestTime','hearAbout','notes'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  ['firstName','lastName','phone','email','addrStreet','addrCity','addrState','addrZip','bestTime','hearAbout','notes'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
   show('landing');
 }
 
 function startCustom(){ est={}; customSvcs={}; landingTiles={}; document.querySelectorAll('.csvc-tile').forEach(function(t){t.classList.remove('selected');}); var sc=document.getElementById('tileSelCount'); if(sc) sc.textContent=''; show('custom'); }
 
 window.addEventListener('DOMContentLoaded',function(){
-  var sd=document.getElementById('serviceDate');
-  if(sd) sd.min=new Date().toISOString().split('T')[0];
+  
+
 });
 </script>
+<div class="sticky-btn-bar" id="stickyBtnBar">
+  <button id="stickyBtn" onclick="">Continue →</button>
+</div>
 </body>
 </html>
